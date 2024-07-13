@@ -1,21 +1,38 @@
+import React from 'react';
 import {useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import Header from '../components/Header';
-import Button from '../components/Button';
-import List from '../components/List';
-import FloatButton from '../components/FloatButton';
-import BottomSheet from '../components/BottomSheet/BottomSheet';
-import {Products} from '../data-mock';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Header from '../../components/Header';
+import Button from '../../components/Button';
+import List from '../../components/List';
+import FloatButton from '../../components/FloatButton';
+import BottomSheet from '../../components/BottomSheet/BottomSheet';
+import {NavigationContext} from '@react-navigation/native';
+import {GlobalStateService} from '../../services/globalStates';
+import {IProduct} from '../../models/product';
+import RenderProduct from './Components/RenderProducts';
 
 const CreateList = () => {
   const [show, setShow] = useState(false);
   const [animation, setAnimation] = useState<boolean>(false);
+  const navigation = React.useContext(NavigationContext);
+  const products: IProduct[] = GlobalStateService.getProductsSelected();
 
   const onPress = () => {
-    console.log('onPress');
     setShow(true);
     setAnimation(true);
   };
+
+  const _renderProducts = ({item}: {item: IProduct}) => {
+    return <RenderProduct item={item} onPress={() => null} />;
+  };
+
+  const handleSubmit = () => {};
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -30,19 +47,23 @@ const CreateList = () => {
         <View style={Style.createList}>
           <Header
             center={<></>}
-            left={<Text>Atras</Text>}
+            left={
+              <TouchableOpacity onPress={() => navigation?.goBack()}>
+                <Text>Atras</Text>
+              </TouchableOpacity>
+            }
             right={<></>}
             key={'Header'}
           />
           <View style={Style.content}>
             <View style={Style.first}>
-              <List data={Products} />
+              <List data={products} render={_renderProducts} />
             </View>
             <View style={Style.second}>
               <FloatButton onPress={onPress} />
             </View>
           </View>
-          <Button children="Listo" key={'Button'} />
+          <Button children="Listo" isDisabled={true} key={'Button'} />
         </View>
       </>
     </SafeAreaView>

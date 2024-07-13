@@ -11,7 +11,12 @@ interface IButton {
   onPress?: () => void;
 }
 
-const Button = ({children, onPress, pressableDisabled}: IButton) => {
+const Button = ({
+  children,
+  onPress,
+  pressableDisabled,
+  isDisabled,
+}: IButton) => {
   //   const {scheme} = useTheme();
   const buttonStyles = [
     {backgroundColor: theme.colors.primary},
@@ -30,6 +35,7 @@ const Button = ({children, onPress, pressableDisabled}: IButton) => {
       <TouchableOpacity
         style={buttonStyles}
         onPress={onPress}
+        disabled={isDisabled}
         activeOpacity={
           pressableDisabled ? styles.disabledOpacity.opacity : 0.2
         }>

@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import BottomSheetForm from './Form';
 import Button from '../Button';
 import List from '../List';
 import {IProduct} from '../../models/product';
+import {GlobalStateService} from '../../services/globalStates';
+import RenderProduct from './RenderProducts';
 interface IBottomSheet {
   onDismiss: () => void;
   setAnimation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +17,33 @@ const Content = ({onDismiss}: IBottomSheet) => {
   const [showError, setShowError] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [values, setValues] = useState<IProduct[]>([]);
+  const [productsSelected, setProductsSelected] = useState<IProduct[]>([]);
+
+  const onPress = ({item}: {item: IProduct}) => {
+    if (productsSelected.length) {
+      const alreadyExist = productsSelected.find(prod => prod.id === item.id);
+      if (alreadyExist) {
+        const newArray = productsSelected.filter(prod => prod.id !== item.id);
+        setProductsSelected(newArray);
+      } else {
+        setProductsSelected([...productsSelected, item]);
+      }
+    } else {
+      setProductsSelected([...productsSelected, item]);
+    }
+  };
+
+  const handleButton = () => {
+    GlobalStateService.setProductsSelected(productsSelected);
+  };
+
+  const _renderProducts = ({item}: {item: IProduct}) => {
+    const findProd = productsSelected.find(prod => prod.id === item.id);
+    const isSelected = findProd !== undefined;
+    return (
+      <RenderProduct item={item} isSelected={isSelected} onPress={onPress} />
+    );
+  };
 
   return (
     <>
@@ -28,10 +57,10 @@ const Content = ({onDismiss}: IBottomSheet) => {
         />
         <View style={styles.containerResult}>
           <View style={styles.containerList}>
-            <List data={values} />
+            <List data={values} render={_renderProducts} />
           </View>
           <View style={styles.containerButton}>
-            <Button>{'Agregar'}</Button>
+            <Button onPress={handleButton}>{'Agregar'}</Button>
           </View>
         </View>
       </View>
