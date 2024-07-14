@@ -17,7 +17,9 @@ const Content = ({onDismiss}: IBottomSheet) => {
   const [showError, setShowError] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [values, setValues] = useState<IProduct[]>([]);
-  const [productsSelected, setProductsSelected] = useState<IProduct[]>([]);
+  const products: IProduct[] = GlobalStateService.getProductsSelected();
+  const [productsSelected, setProductsSelected] =
+    useState<IProduct[]>(products);
 
   const onPress = ({item}: {item: IProduct}) => {
     if (productsSelected.length) {

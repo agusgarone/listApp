@@ -20,25 +20,16 @@ const Button = ({
   //   const {scheme} = useTheme();
   const buttonStyles = [
     {backgroundColor: theme.colors.primary},
-    pressableDisabled && styles.disabledOpacity,
+    isDisabled && styles.disabledOpacity,
     styles.button,
   ];
-  // * mas adelante se hace las fuentes
-  //   const textStyles = [
-  //     isDisabled
-  //       ? theme.disabledButtonText[variant][scheme]
-  //       : theme.buttonText[variant][scheme],
-  //     styles.buttonText,
-  //   ];
+
   return (
     <View>
       <TouchableOpacity
         style={buttonStyles}
         onPress={onPress}
-        disabled={isDisabled}
-        activeOpacity={
-          pressableDisabled ? styles.disabledOpacity.opacity : 0.2
-        }>
+        disabled={isDisabled}>
         <Text>{children}</Text>
       </TouchableOpacity>
     </View>
@@ -63,6 +54,7 @@ const styles = StyleSheet.create({
   disabledOpacity: {
     opacity: 0.5,
   },
+  disabled: {},
 });
 
 export default Button;

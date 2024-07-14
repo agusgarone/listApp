@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Header from '../../components/Header';
 import List from '../../components/List';
-import {Lists} from '../../data-mock';
 import RenderList from './Components/RenderList';
 import {IList} from '../../models/list';
+import {NavigationContext} from '@react-navigation/native';
+import StorageService from '../../services/asyncStorage';
 
 const Home = () => {
+  const [list, setList] = useState<IList[]>([]);
+  const navigation = React.useContext(NavigationContext);
+
+  navigation?.addListener('focus', () => {
+    StorageService.getItem('lists').then(res => {
+      setList(res);
+    });
+  });
+
   const _renderList = ({item}: {item: IList}) => {
     return <RenderList item={item} />;
   };
@@ -21,7 +31,7 @@ const Home = () => {
           key={'Header'}
         />
         <View style={Style.content}>
-          <List data={Lists} render={_renderList} />
+          <List data={list} render={_renderList} />
         </View>
       </View>
     </SafeAreaView>

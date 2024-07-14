@@ -4,12 +4,16 @@ import StorageService from './asyncStorage';
 export const CreateList = (list: IList) => {
   StorageService.getItem('lists').then((response: IList[]) => {
     const lists = response;
-    const listExist = lists.find(value => value.name === list.name);
-    if (listExist) {
-      console.log('La lista ya existe');
+    if (lists) {
+      const listExist = lists.find(value => value.name === list.name);
+      if (listExist) {
+        console.log('La lista ya existe');
+      } else {
+        const listsArray = [...lists, list];
+        StorageService.setItem('lists', listsArray);
+      }
     } else {
-      const listsArray = [...lists, list];
-      StorageService.setItem('lists', listsArray);
+      StorageService.setItem('lists', [list]);
     }
   });
 };

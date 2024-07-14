@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import Header from '../../components/Header';
-import Button from '../../components/Button';
 import List from '../../components/List';
 import FloatButton from '../../components/FloatButton';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
@@ -16,6 +15,7 @@ import {NavigationContext} from '@react-navigation/native';
 import {GlobalStateService} from '../../services/globalStates';
 import {IProduct} from '../../models/product';
 import RenderProduct from './Components/RenderProducts';
+import CreateListForm from './Components/Form';
 
 const CreateList = () => {
   const [show, setShow] = useState(false);
@@ -31,8 +31,6 @@ const CreateList = () => {
   const _renderProducts = ({item}: {item: IProduct}) => {
     return <RenderProduct item={item} onPress={() => null} />;
   };
-
-  const handleSubmit = () => {};
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -56,17 +54,46 @@ const CreateList = () => {
             key={'Header'}
           />
           <View style={Style.content}>
-            <View style={Style.first}>
-              <List data={products} render={_renderProducts} />
-            </View>
-            <View style={Style.second}>
-              <FloatButton onPress={onPress} />
-            </View>
+            <CreateListForm
+              children={
+                <Content
+                  _renderProducts={_renderProducts}
+                  onPress={onPress}
+                  products={products}
+                />
+              }
+            />
           </View>
-          <Button children="Listo" isDisabled={true} key={'Button'} />
         </View>
       </>
     </SafeAreaView>
+  );
+};
+
+const Content = ({
+  products,
+  _renderProducts,
+  onPress,
+}: {
+  products: IProduct[];
+  _renderProducts: any;
+  onPress: () => void;
+}) => {
+  return (
+    <>
+      <View style={Style.first}>
+        {products.length ? (
+          <List data={products} render={_renderProducts} />
+        ) : (
+          <View style={Style.noProducts}>
+            <Text>¡Agregá tus productos!</Text>
+          </View>
+        )}
+      </View>
+      <View style={Style.second}>
+        <FloatButton onPress={onPress} />
+      </View>
+    </>
   );
 };
 
@@ -88,11 +115,16 @@ const Style = StyleSheet.create({
   first: {
     flex: 5,
   },
+  noProducts: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   second: {
     flex: 1,
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
   },
 });
 
