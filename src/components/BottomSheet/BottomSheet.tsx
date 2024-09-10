@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     overflow: 'hidden',
-    backgroundColor: theme.colors.white,
+    backgroundColor: '#F1F1F3',
   },
   header: {
     display: 'flex',

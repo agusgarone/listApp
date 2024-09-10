@@ -21,7 +21,7 @@ const RenderProduct = ({
           : {borderColor: theme.colors.grey},
       ]}
       onPress={() => onPress({item})}>
-      <Text>{item.name}</Text>
+      <Text style={style.text}>{item.name}</Text>
     </TouchableOpacity>
   );
 };
@@ -36,6 +36,9 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

@@ -4,7 +4,7 @@ import theme from '../common/theme';
 const FloatButton = ({onPress}: {onPress: () => void}) => {
   return (
     <View style={style.view} onTouchEnd={() => onPress()}>
-      <Text>hola</Text>
+      <Text style={style.text}>plus</Text>
     </View>
   );
 };
@@ -17,7 +17,10 @@ const style = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
+    borderRadius: 12,
+  },
+  text: {
+    color: theme.colors.white,
   },
 });
 

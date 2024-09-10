@@ -37,6 +37,7 @@ const Content = ({onDismiss}: IBottomSheet) => {
 
   const handleButton = () => {
     GlobalStateService.setProductsSelected(productsSelected);
+    onDismiss();
   };
 
   const _renderProducts = ({item}: {item: IProduct}) => {

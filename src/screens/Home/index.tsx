@@ -6,6 +6,7 @@ import RenderList from './Components/RenderList';
 import {IList} from '../../models/list';
 import {NavigationContext} from '@react-navigation/native';
 import StorageService from '../../services/asyncStorage';
+import theme from '../../common/theme';
 
 const Home = () => {
   const [list, setList] = useState<IList[]>([]);
@@ -25,7 +26,7 @@ const Home = () => {
     <SafeAreaView style={Style.screen}>
       <View style={Style.home}>
         <Header
-          center={<Text>ShopListApp</Text>}
+          center={<Text style={Style.text}>ShopListApp</Text>}
           left={<></>}
           right={<></>}
           key={'Header'}
@@ -47,8 +48,11 @@ const Style = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingVertical: 32,
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

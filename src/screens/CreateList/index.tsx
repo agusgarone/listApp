@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -8,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import Header from '../../components/Header';
-import List from '../../components/List';
 import FloatButton from '../../components/FloatButton';
 import BottomSheet from '../../components/BottomSheet/BottomSheet';
 import {NavigationContext} from '@react-navigation/native';
@@ -16,6 +16,7 @@ import {GlobalStateService} from '../../services/globalStates';
 import {IProduct} from '../../models/product';
 import RenderProduct from './Components/RenderProducts';
 import CreateListForm from './Components/Form';
+import theme from '../../common/theme';
 
 const CreateList = () => {
   const [show, setShow] = useState(false);
@@ -47,7 +48,7 @@ const CreateList = () => {
             center={<></>}
             left={
               <TouchableOpacity onPress={() => navigation?.goBack()}>
-                <Text>Atras</Text>
+                <Text style={Style.text}>Atras</Text>
               </TouchableOpacity>
             }
             right={<></>}
@@ -82,13 +83,16 @@ const Content = ({
   return (
     <>
       <View style={Style.first}>
-        {products.length ? (
-          <List data={products} render={_renderProducts} />
-        ) : (
-          <View style={Style.noProducts}>
-            <Text>¡Agregá tus productos!</Text>
-          </View>
-        )}
+        <FlatList
+          style={{flex: 1}}
+          data={products}
+          renderItem={_renderProducts}
+          ListEmptyComponent={() => (
+            <View style={Style.noProducts}>
+              <Text style={Style.text}>¡Agregá tus productos!</Text>
+            </View>
+          )}
+        />
       </View>
       <View style={Style.second}>
         <FloatButton onPress={onPress} />
@@ -106,7 +110,7 @@ const Style = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   content: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingVertical: 32,
     display: 'flex',
     flex: 1,
@@ -125,6 +129,9 @@ const Style = StyleSheet.create({
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

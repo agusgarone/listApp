@@ -21,7 +21,7 @@ export const CreateList = (list: IList) => {
 export const RemoveList = (list: IList) => {
   StorageService.getItem('lists').then((response: IList[]) => {
     const lists = response;
-    const listsArray = lists.filter(value => value.name === list.name);
+    const listsArray = lists.filter(value => value.name !== list.name);
     StorageService.setItem('lists', listsArray);
   });
 };

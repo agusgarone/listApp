@@ -19,15 +19,14 @@ const RenderList = ({item}: {item: IList}) => {
           item.products.length === 1 ? 'producto' : 'productos'
         }`}
       </Text>
-      <Text>{`Creada el ${item.fechaAlta}`}</Text>
+      <Text style={style.date}>{`Creada el ${item.fechaAlta}`}</Text>
     </TouchableOpacity>
   );
 };
 
 const style = StyleSheet.create({
   view: {
-    borderColor: theme.colors.grey,
-    borderWidth: 2,
+    backgroundColor: theme.colors.white,
     marginVertical: 5,
     borderRadius: 20,
     paddingVertical: 16,
@@ -38,11 +37,16 @@ const style = StyleSheet.create({
   },
   name: {
     fontSize: theme.fontSize.xxxl,
+    fontWeight: 'bold',
     color: theme.colors.black,
   },
   subtitle: {
     fontSize: theme.fontSize.l,
     marginBottom: 4,
+    color: theme.colors.grey,
+  },
+  date: {
+    color: theme.colors.grey,
   },
 });
 

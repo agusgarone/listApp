@@ -6,15 +6,14 @@ import {IProduct} from '../../../models/product';
 const RenderItem = ({item}: {item: IProduct}) => {
   return (
     <View style={style.view}>
-      <Text>{item.name}</Text>
+      <Text style={style.text}>{item.name}</Text>
     </View>
   );
 };
 
 const style = StyleSheet.create({
   view: {
-    borderColor: theme.colors.grey,
-    borderWidth: 1,
+    backgroundColor: theme.colors.white,
     marginVertical: 2,
     borderRadius: 12,
     paddingVertical: 16,
@@ -22,6 +21,9 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

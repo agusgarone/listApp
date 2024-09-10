@@ -12,6 +12,7 @@ import theme from '../../common/theme';
 import {NavigationContext} from '@react-navigation/native';
 import RenderProduct from './Components/RenderProducts';
 import {IProduct} from '../../models/product';
+import {RemoveList} from '../../services/List';
 
 const SelectList = ({route}: any) => {
   const {key, name, params} = route;
@@ -28,7 +29,7 @@ const SelectList = ({route}: any) => {
           center={<></>}
           left={
             <TouchableOpacity onPress={() => navigation?.goBack()}>
-              <Text>Atras</Text>
+              <Text style={Style.text}>Atras</Text>
             </TouchableOpacity>
           }
           right={<></>}
@@ -36,10 +37,23 @@ const SelectList = ({route}: any) => {
         />
         <View style={Style.content}>
           <View style={Style.header}>
-            <Text>{params?.item?.name}</Text>
-            <TouchableOpacity style={Style.button}>
-              <Text>Actions</Text>
-            </TouchableOpacity>
+            <Text style={Style.nameList}>{params?.item?.name}</Text>
+            <View style={{flexDirection: 'row', gap: 8}}>
+              {params?.item && (
+                <TouchableOpacity
+                  style={Style.delete}
+                  onPress={() => {
+                    RemoveList(params?.item);
+                    navigation?.setParams({item: undefined});
+                    navigation?.navigate('Home');
+                  }}>
+                  <Text style={Style.buttonText}>Delete</Text>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity style={Style.action}>
+                <Text style={Style.buttonText}>Actions</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <List data={params?.item?.products} render={_renderProducts} />
         </View>
@@ -58,7 +72,7 @@ const Style = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingVertical: 32,
   },
   header: {
@@ -68,11 +82,26 @@ const Style = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-  button: {
+  delete: {
     padding: 10,
-    borderWidth: 2,
-    borderColor: theme.colors.grey,
+    backgroundColor: theme.colors.red,
     borderRadius: 16,
+  },
+  action: {
+    padding: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 16,
+  },
+  buttonText: {
+    color: theme.colors.white,
+  },
+  nameList: {
+    color: theme.colors.black,
+    fontSize: theme.fontSize.xxl,
+    fontWeight: 'bold',
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

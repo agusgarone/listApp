@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import theme from '../common/theme';
-// import theme from '../theme';
-// import {useTheme} from '../ThemeProvider';
 
 interface IButton {
   isDisabled?: boolean;
@@ -30,7 +28,7 @@ const Button = ({
         style={buttonStyles}
         onPress={onPress}
         disabled={isDisabled}>
-        <Text>{children}</Text>
+        <Text style={styles.text}>{children}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -41,9 +39,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
     paddingHorizontal: 18,
-    borderRadius: 4,
+    borderRadius: 12,
   },
   buttonText: {
     // fontFamily: theme.font.principalMedium,
@@ -55,6 +53,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   disabled: {},
+  text: {
+    color: theme.colors.white,
+  },
 });
 
 export default Button;
