@@ -1,72 +1,55 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useCallback} from 'react';
 import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
   FlatList,
   SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
 } from 'react-native';
-import Header from '../../components/Header';
-import FloatButton from '../../components/FloatButton';
-import BottomSheet from '../../components/BottomSheet/BottomSheet';
-import {NavigationContext} from '@react-navigation/native';
-import {GlobalStateService} from '../../services/globalStates';
-import {IProduct} from '../../models/product';
-import RenderProduct from './Components/RenderProducts';
-import CreateListForm from './Components/Form';
 import theme from '../../common/theme';
 
+import Header from '../../components/Header';
+import {NavigationContext} from '@react-navigation/native';
+import {IProduct} from '../../models/product';
+import CreateListForm from '../../screens/CreateList/Components/Form';
+import {GlobalStateService} from '../../services/globalStates';
+import RenderProduct from '../../screens/CreateList/Components/RenderProducts';
+import FloatButton from '../../components/FloatButton';
+
 const CreateList = () => {
-  const [show, setShow] = useState(false);
-  const [animation, setAnimation] = useState<boolean>(false);
   const navigation = React.useContext(NavigationContext);
   const products: IProduct[] = GlobalStateService.getProductsSelected();
-
-  const onPress = () => {
-    setShow(true);
-    setAnimation(true);
-  };
-
   const _renderProducts = ({item}: {item: IProduct}) => {
     return <RenderProduct item={item} onPress={() => null} />;
   };
+  const onPress = useCallback(() => {
+    navigation?.navigate('AddProducts');
+  }, []);
 
   return (
-    <SafeAreaView style={Style.screen}>
-      <>
-        <BottomSheet
-          animation={animation}
-          onDismiss={() => setShow(false)}
-          show={show}
-          setAnimation={setAnimation}
-          key={'BottomSheet'}
-        />
-        <View style={Style.createList}>
-          <Header
-            center={<></>}
-            left={
-              <TouchableOpacity onPress={() => navigation?.goBack()}>
-                <Text style={Style.text}>Atras</Text>
-              </TouchableOpacity>
-            }
-            right={<></>}
-            key={'Header'}
-          />
-          <View style={Style.content}>
-            <CreateListForm
-              children={
-                <Content
-                  _renderProducts={_renderProducts}
-                  onPress={onPress}
-                  products={products}
-                />
-              }
+    <SafeAreaView style={Style.createList}>
+      <Header
+        center={<></>}
+        left={
+          <TouchableOpacity onPress={() => navigation?.goBack()}>
+            <Text style={Style.text}>Atras</Text>
+          </TouchableOpacity>
+        }
+        right={<></>}
+        key={'Header'}
+      />
+      <View style={Style.content}>
+        <CreateListForm
+          children={
+            <Content
+              products={products}
+              _renderProducts={_renderProducts}
+              onPress={onPress}
             />
-          </View>
-        </View>
-      </>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -77,7 +60,7 @@ const Content = ({
   onPress,
 }: {
   products: IProduct[];
-  _renderProducts: any;
+  _renderProducts: ({item}: {item: IProduct}) => React.JSX.Element;
   onPress: () => void;
 }) => {
   return (
@@ -105,8 +88,17 @@ const Style = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  bottomSheetBackground: {
+    backgroundColor: theme.colors.white,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  sheetContent: {
+    flex: 1,
+  },
   createList: {
     flex: 1,
+    zIndex: 1,
     justifyContent: 'flex-start',
   },
   content: {

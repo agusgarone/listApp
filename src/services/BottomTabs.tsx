@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import SelectList from '../screens/SelectList';
 import CreateList from '../screens/CreateList';
+import AddProducts from '../screens/AddProducts';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,11 @@ const BottomTabs = () => {
         name="CreateList"
         options={{header: () => null}}
         component={CreateList}
+      />
+      <Tab.Screen
+        name="AddProducts"
+        options={{header: () => null}}
+        component={AddProducts}
       />
     </Tab.Navigator>
   );

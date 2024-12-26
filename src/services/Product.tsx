@@ -1,5 +1,5 @@
 import {IProduct} from '../models/product';
-import StorageService from './asyncStorage';
+import {StorageService} from '../storage/asyncStorage';
 
 export const CreateProduct = (product: IProduct) => {
   StorageService.getItem('products').then((response: IProduct[]) => {
@@ -18,6 +18,19 @@ export const RemoveProduct = (product: IProduct) => {
   StorageService.getItem('products').then((response: IProduct[]) => {
     const products = response;
     const productArray = products.filter(value => value.name === product.name);
+    StorageService.setItem('products', productArray);
+  });
+};
+
+export const EditProduct = (product: IProduct) => {
+  StorageService.getItem('products').then((response: IProduct[]) => {
+    const products = response;
+    const productArray = products.map(value => {
+      if (value.id === product.id) {
+        return product;
+      }
+      return value;
+    });
     StorageService.setItem('products', productArray);
   });
 };

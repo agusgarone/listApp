@@ -1,16 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Keyboard} from 'react-native';
 import {Formik} from 'formik';
-import Button from '../Button';
 
-import {FormikInputValue} from '../FormikInput';
-import {FORM_STATUS} from '../../common/utils/formStatus';
-import {IProduct} from '../../models/product';
-import {Products} from '../../data-mock';
+import {FormikInputValue} from '../../../components/FormikInput';
+import {IProduct} from '../../../models/product';
+import {Products} from '../../../data-mock';
 
 interface IBottomSheetForm {
   setSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowError: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
   setValues: React.Dispatch<React.SetStateAction<IProduct[]>>;
 }
@@ -21,19 +18,26 @@ const initialValues = {
 
 const BottomSheetForm = ({
   setSearch,
-  setShowError,
   setMessage,
   setValues,
 }: IBottomSheetForm) => {
-  const handleFormikSubmit = async (
-    values: {textSearched: string},
-    actions: {
-      setStatus: (arg0: string) => void;
-      setSubmitting: (arg0: boolean) => void;
-    },
-  ) => {
-    actions.setStatus(FORM_STATUS.idle);
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleFormikSubmit({textSearched: query});
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [query]);
+
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+  };
+
+  const handleFormikSubmit = async (values: {textSearched: string}) => {
+    // actions.setStatus(FORM_STATUS.idle);
     setSearch(true);
+    console.log(values);
     const productsFilter = Products.filter(value =>
       value.name
         .toLocaleLowerCase()
@@ -42,6 +46,7 @@ const BottomSheetForm = ({
     setValues(productsFilter);
     Keyboard.dismiss();
   };
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleFormikSubmit}>
       {({handleSubmit}) => {
@@ -50,17 +55,8 @@ const BottomSheetForm = ({
             <FormikInputValue
               name="textSearched"
               placeholder={'buscar producto'}
-              // Icon={Search}
-              iconStyles={'red'}
-              styles={{
-                width: '100%',
-                marginBottom: 16,
-                paddingHorizontal: 24,
-              }}
+              onChange={value => handleInputChange(value)}
             />
-            <View style={{width: '100%', paddingHorizontal: 24}}>
-              <Button children={'buscar'} onPress={handleSubmit} />
-            </View>
           </View>
         );
       }}
@@ -70,7 +66,6 @@ const BottomSheetForm = ({
 
 const styles = StyleSheet.create({
   form: {
-    flex: 1,
     paddingTop: 16,
     width: '100%',
     alignItems: 'center',

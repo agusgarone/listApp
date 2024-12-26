@@ -1,7 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
-// import theme from '../theme';
-// import {useTheme} from '../ThemeProvider';
 
 interface IHeader {
   left: React.JSX.Element;
@@ -10,8 +8,6 @@ interface IHeader {
 }
 
 const Header = ({left, center, right}: IHeader) => {
-  //   const {scheme} = useTheme();
-
   return (
     <View style={[styles.structure]}>
       <View style={styles.sides}>{left}</View>

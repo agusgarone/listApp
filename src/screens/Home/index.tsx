@@ -5,7 +5,7 @@ import List from '../../components/List';
 import RenderList from './Components/RenderList';
 import {IList} from '../../models/list';
 import {NavigationContext} from '@react-navigation/native';
-import StorageService from '../../services/asyncStorage';
+import {StorageService} from '../../storage/asyncStorage';
 import theme from '../../common/theme';
 
 const Home = () => {

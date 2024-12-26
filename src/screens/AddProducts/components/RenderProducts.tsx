@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {IProduct} from '../../models/product';
-import theme from '../../common/theme';
+import {IProduct} from '../../../models/product';
+import theme from '../../../common/theme';
 
 const RenderProduct = ({
   item,
@@ -17,28 +17,36 @@ const RenderProduct = ({
       style={[
         style.view,
         isSelected
-          ? {borderColor: theme.colors.primary}
-          : {borderColor: theme.colors.grey},
+          ? {backgroundColor: theme.colors.primary}
+          : {backgroundColor: theme.colors.white},
       ]}
       onPress={() => onPress({item})}>
-      <Text style={style.text}>{item.name}</Text>
+      <Text
+        style={[
+          style.text,
+          isSelected ? {color: theme.colors.white} : {color: theme.colors.grey},
+        ]}>
+        {item.name}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 const style = StyleSheet.create({
   view: {
-    borderWidth: 1,
-    marginVertical: 2,
+    marginHorizontal: 3,
+    marginTop: 2,
+    marginBottom: 5,
     borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 16,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    elevation: 2,
   },
   text: {
     color: theme.colors.grey,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
   },
 });
 

@@ -5,11 +5,11 @@ import BottomTabs from './src/services/BottomTabs';
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <NavigationContainer>
         <BottomTabs />
-      </GestureHandlerRootView>
-    </NavigationContainer>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 

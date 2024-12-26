@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const StorageService = {
+export const StorageService = {
   // Función para guardar un valor en AsyncStorage
   async setItem(key: string, value: any) {
     try {
@@ -34,5 +34,3 @@ const StorageService = {
     }
   },
 };
-
-export default StorageService;

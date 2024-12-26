@@ -49,7 +49,7 @@ const CreateListForm = ({children}: {children: JSX.Element}) => {
       {({handleSubmit}) => {
         return (
           <View style={styles.form}>
-            <FormikInputValue
+            {/* <FormikInputValue
               name="name"
               placeholder={'Nombre de la lista'}
               iconStyles={'red'}
@@ -57,11 +57,12 @@ const CreateListForm = ({children}: {children: JSX.Element}) => {
                 width: '100%',
                 marginBottom: 16,
               }}
-            />
+            /> */}
             {children}
             <Button
               children="Listo"
               isDisabled={false}
+              type="primary"
               onPress={handleSubmit}
               key={'Button'}
             />

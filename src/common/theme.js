@@ -4,6 +4,7 @@ const colors = {
   white: '#FFF',
   black: '#000',
   red: '#ff0000',
+  whiteInput: '#F5F5F5',
 };
 
 const fontSize = {
