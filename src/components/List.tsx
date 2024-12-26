@@ -10,7 +10,13 @@ const List = ({
   data: IProduct[] | IList[];
   render: ({item}: {item: any}) => React.JSX.Element;
 }) => {
-  return <FlatList data={data as any} renderItem={render} />;
+  return (
+    <FlatList
+      data={data as any}
+      renderItem={render}
+      style={{paddingVertical: 5}}
+    />
+  );
 };
 
 export default List;

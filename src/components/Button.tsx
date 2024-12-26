@@ -4,21 +4,19 @@ import theme from '../common/theme';
 
 interface IButton {
   isDisabled?: boolean;
-  pressableDisabled?: boolean;
+  type: 'primary' | 'secondary';
   children: string;
   onPress?: () => void;
 }
 
-const Button = ({
-  children,
-  onPress,
-  pressableDisabled,
-  isDisabled,
-}: IButton) => {
-  //   const {scheme} = useTheme();
+const Button = ({children, onPress, isDisabled, type}: IButton) => {
   const buttonStyles = [
-    {backgroundColor: theme.colors.primary},
-    isDisabled && styles.disabledOpacity,
+    {
+      backgroundColor:
+        type === 'primary' ? theme.colors.primary : theme.colors.white,
+      color: type === 'primary' ? theme.colors.white : theme.colors.primary,
+    },
+    // isDisabled && styles.disabledOpacity,
     styles.button,
   ];
 
@@ -28,7 +26,13 @@ const Button = ({
         style={buttonStyles}
         onPress={onPress}
         disabled={isDisabled}>
-        <Text style={styles.text}>{children}</Text>
+        <Text
+          style={{
+            color:
+              type === 'primary' ? theme.colors.white : theme.colors.primary,
+          }}>
+          {children}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -44,18 +48,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   buttonText: {
-    // fontFamily: theme.font.principalMedium,
     fontSize: theme.fontSize.l,
     letterSpacing: 0.25,
     marginBottom: 1,
   },
-  disabledOpacity: {
-    opacity: 0.5,
-  },
-  disabled: {},
-  text: {
-    color: theme.colors.white,
-  },
+  // disabledOpacity: {
+  //   opacity: 0.5,
+  // },
 });
 
 export default Button;

@@ -5,21 +5,12 @@ import theme from '../common/theme';
 const Input = ({
   label,
   placeholder,
-  isPassword,
   style,
   error,
   value,
   onChangeText,
-  saveForm,
 }: any) => {
   const [focus, setFocus] = useState(false);
-  const [showPassword, setShowPassword] = useState(isPassword ? true : false);
-
-  useEffect(() => {
-    if (saveForm) {
-      setFocus(false);
-    }
-  }, [saveForm]);
 
   const styles = StyleSheet.create({
     scrollView: {
@@ -33,7 +24,7 @@ const Input = ({
       width: '100%',
       borderWidth: 2,
       borderRadius: 12,
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.whiteInput,
       paddingHorizontal: 16,
       justifyContent: 'space-between',
     },
@@ -60,37 +51,15 @@ const Input = ({
       )}
       <View style={stylesToViewInput}>
         <TextInput
-          blurOnSubmit={saveForm}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           style={{flex: 1, color: theme.colors.black}}
           placeholder={placeholder}
           placeholderTextColor={theme.colors.grey}
-          secureTextEntry={showPassword}
           value={value}
           onChangeText={onChangeText}
         />
-        {/* {isPassword &&
-          (showPassword ? (
-            <EyeOn
-              fill={
-                focus
-                  ? theme.secondaryColor[scheme]
-                  : theme.iconDisabled[scheme]
-              }
-              onPress={() => setShowPassword(!showPassword)}
-            />
-          ) : (
-            <EyeOff
-              fill={
-                focus
-                  ? theme.secondaryColor[scheme]
-                  : theme.iconDisabled[scheme]
-              }
-              onPress={() => setShowPassword(!showPassword)}
-            />
-          ))}
-        {Icon && <Icon fill={iconStyles} />} */}
+        {/* {Icon && <Icon fill={iconStyles} />} */}
       </View>
     </ScrollView>
   );
