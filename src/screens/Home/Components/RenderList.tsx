@@ -1,14 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {NavigationContext} from '@react-navigation/native';
 import {IList} from '../../../models/list';
 import theme from '../../../common/theme';
 
 const RenderList = ({item}: {item: IList}) => {
-  const navigation = React.useContext(NavigationContext);
-
   const onPress = () => {
-    navigation?.navigate('SelectList', {item: item});
+    // navigation?.navigate('SelectList', {item: item});
+    // * Aca deberia de ir a la nueva pantalla donde podes ver el detalle de la lista e ir tachando lo que ya tenes
   };
 
   return (
@@ -27,6 +25,7 @@ const RenderList = ({item}: {item: IList}) => {
 const style = StyleSheet.create({
   view: {
     backgroundColor: theme.colors.white,
+    marginHorizontal: 3,
     marginVertical: 5,
     borderRadius: 20,
     paddingVertical: 16,
@@ -34,6 +33,7 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    elevation: 3,
   },
   name: {
     fontSize: theme.fontSize.xxxl,

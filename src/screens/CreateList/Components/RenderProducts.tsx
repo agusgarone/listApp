@@ -20,15 +20,17 @@ const RenderProduct = ({
 
 const style = StyleSheet.create({
   view: {
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    marginVertical: 2,
+    backgroundColor: theme.colors.white,
+    marginHorizontal: 3,
+    marginTop: 2,
+    marginBottom: 5,
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 16,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    elevation: 2,
   },
   text: {
     color: theme.colors.grey,
