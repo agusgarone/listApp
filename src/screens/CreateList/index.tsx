@@ -14,6 +14,7 @@ import CreateListForm from '../../screens/CreateList/Components/Form';
 import RenderProduct from '../../screens/CreateList/Components/RenderProducts';
 import {Content} from './Components/Content';
 import {createListController} from './Controller/createListController';
+import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 
 const CreateList = () => {
   const {goBack} = createListController();
@@ -27,7 +28,13 @@ const CreateList = () => {
         center={<></>}
         left={
           <TouchableOpacity onPress={goBack}>
-            <Text style={Style.text}>Atras</Text>
+            <Icon
+              name="arrow-left"
+              type={IconType.FontAwesome}
+              size={25}
+              color={theme.colors.grey}
+              onPress={() => {}}
+            />
           </TouchableOpacity>
         }
         right={<></>}

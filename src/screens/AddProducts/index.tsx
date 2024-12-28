@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import {NavigationContext} from '@react-navigation/native';
 import {useContext} from 'react';
 import theme from '../../common/theme';
+import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 
 const AddProducts = () => {
   const navigation = useContext(NavigationContext);
@@ -15,7 +16,13 @@ const AddProducts = () => {
         center={<></>}
         left={
           <TouchableOpacity onPress={() => navigation?.goBack()}>
-            <Text style={Style.text}>Atras</Text>
+            <Icon
+              name="arrow-left"
+              type={IconType.FontAwesome}
+              size={25}
+              color={theme.colors.grey}
+              onPress={() => {}}
+            />
           </TouchableOpacity>
         }
         right={<></>}

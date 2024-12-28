@@ -13,6 +13,7 @@ import {NavigationContext} from '@react-navigation/native';
 import RenderProduct from './Components/RenderProducts';
 import {IProduct} from '../../models/product';
 import {RemoveList} from '../../services/List';
+import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 
 const SelectList = ({route}: any) => {
   const {key, name, params} = route;
@@ -29,7 +30,13 @@ const SelectList = ({route}: any) => {
           center={<></>}
           left={
             <TouchableOpacity onPress={() => navigation?.goBack()}>
-              <Text style={Style.text}>Atras</Text>
+              <Icon
+                name="arrow-left"
+                type={IconType.FontAwesome}
+                size={25}
+                color={theme.colors.grey}
+                onPress={() => {}}
+              />
             </TouchableOpacity>
           }
           right={<></>}
