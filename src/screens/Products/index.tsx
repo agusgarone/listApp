@@ -9,18 +9,20 @@ import {
 import Header from '../../components/Header';
 import List from '../../components/List';
 import theme from '../../common/theme';
-import {NavigationContext} from '@react-navigation/native';
-import RenderProduct from './Components/RenderProducts';
 import {IProduct} from '../../models/product';
-import {RemoveList} from '../../services/List';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
+import RenderProduct from '../AddProducts/components/RenderProducts';
+import {Products as Productos} from '../../data-mock';
+import Button from '../../components/Button';
+// import {productsController} from './Controller/productsController';
 
-const SelectList = ({route}: any) => {
-  const {key, name, params} = route;
-  const navigation = React.useContext(NavigationContext);
+const Products = ({route}: any) => {
+  // const {allProducts} = productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
-    return <RenderProduct item={item} />;
+    return (
+      <RenderProduct item={item} isSelected={false} onPress={() => null} />
+    );
   };
 
   return (
@@ -29,7 +31,7 @@ const SelectList = ({route}: any) => {
         <Header
           center={<></>}
           left={
-            <TouchableOpacity onPress={() => navigation?.goBack()}>
+            <TouchableOpacity onPress={() => null}>
               <Icon
                 name="arrow-left"
                 type={IconType.FontAwesome}
@@ -44,25 +46,24 @@ const SelectList = ({route}: any) => {
         />
         <View style={Style.content}>
           <View style={Style.header}>
-            <Text style={Style.nameList}>{params?.item?.name}</Text>
-            <View style={{flexDirection: 'row', gap: 8}}>
-              {params?.item && (
-                <TouchableOpacity
-                  style={Style.delete}
-                  onPress={() => {
-                    RemoveList(params?.item);
-                    navigation?.setParams({item: undefined});
-                    navigation?.navigate('Home');
-                  }}>
-                  <Text style={Style.buttonText}>Delete</Text>
-                </TouchableOpacity>
-              )}
+            <View style={{flexDirection: 'row'}}>
               <TouchableOpacity style={Style.action}>
-                <Text style={Style.buttonText}>Actions</Text>
+                <Text style={Style.buttonText}>Filtros</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <List data={params?.item?.products} render={_renderProducts} />
+          <View style={Style.containerList}>
+            <List data={Productos} render={_renderProducts} />
+          </View>
+          <View style={Style.containerButton}>
+            <Button
+              children="Agregar"
+              isDisabled={false}
+              type="primary"
+              onPress={() => null}
+              key={'Button'}
+            />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -79,13 +80,13 @@ const Style = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 32,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 16,
   },
@@ -96,20 +97,26 @@ const Style = StyleSheet.create({
   },
   action: {
     padding: 10,
+    width: 80,
     backgroundColor: theme.colors.primary,
     borderRadius: 16,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     color: theme.colors.white,
+    fontSize: theme.fontSize.m,
+    fontWeight: '600',
   },
-  nameList: {
-    color: theme.colors.black,
-    fontSize: theme.fontSize.xxl,
-    fontWeight: 'bold',
+  containerList: {
+    flex: 9,
+    display: 'flex',
   },
-  text: {
-    color: theme.colors.grey,
+  containerButton: {
+    flex: 1,
+    display: 'flex',
   },
 });
 
-export default SelectList;
+export default Products;

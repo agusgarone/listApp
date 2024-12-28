@@ -1,12 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
-import SelectList from '../screens/SelectList';
+import SelectList from '../screens/Products';
 import CreateList from '../screens/CreateList';
 import AddProducts from '../screens/AddProducts';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import theme from '../common/theme';
 import ListDetail from '../screens/ListDetail';
+import Products from '../screens/Products';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,9 +31,9 @@ const BottomTabs = () => {
         component={Home}
       />
       <Tab.Screen
-        name="ListDetail"
+        name="Prueba"
         options={{header: () => null}}
-        component={ListDetail}
+        component={Products}
       />
       <Tab.Screen
         name="CreateList"
