@@ -6,6 +6,7 @@ import CreateList from '../screens/CreateList';
 import AddProducts from '../screens/AddProducts';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import theme from '../common/theme';
+import ListDetail from '../screens/ListDetail';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,9 +30,9 @@ const BottomTabs = () => {
         component={Home}
       />
       <Tab.Screen
-        name="SelectList"
+        name="ListDetail"
         options={{header: () => null}}
-        component={SelectList}
+        component={ListDetail}
       />
       <Tab.Screen
         name="CreateList"

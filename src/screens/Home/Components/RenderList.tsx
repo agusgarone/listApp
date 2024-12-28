@@ -3,14 +3,17 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {IList} from '../../../models/list';
 import theme from '../../../common/theme';
 
-const RenderList = ({item}: {item: IList}) => {
-  const onPress = () => {
-    // navigation?.navigate('SelectList', {item: item});
-    // * Aca deberia de ir a la nueva pantalla donde podes ver el detalle de la lista e ir tachando lo que ya tenes
-  };
-
+const RenderList = ({
+  item,
+  navigateToListDetail,
+}: {
+  item: IList;
+  navigateToListDetail: (id: string) => void;
+}) => {
   return (
-    <TouchableOpacity style={style.view} onPress={onPress}>
+    <TouchableOpacity
+      style={style.view}
+      onPress={() => navigateToListDetail(item.id.toString())}>
       <Text style={style.name}>{item.name}</Text>
       <Text style={style.subtitle}>
         {`${item.products.length} ${
