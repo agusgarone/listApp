@@ -8,6 +8,7 @@ import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import theme from '../common/theme';
 import ListDetail from '../screens/ListDetail';
 import Products from '../screens/Products';
+import CreateProduct from '../screens/CreateProduct';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ const BottomTabs = () => {
       <Tab.Screen
         name="Prueba"
         options={{header: () => null}}
-        component={Products}
+        component={CreateProduct}
       />
       <Tab.Screen
         name="CreateList"
@@ -53,7 +54,7 @@ const BottomTabs = () => {
         component={CreateList}
       />
       <Tab.Screen
-        name="AddProducts"
+        name="Products"
         options={{
           header: () => null,
           tabBarLabel: 'Products',
@@ -67,7 +68,7 @@ const BottomTabs = () => {
             />
           ),
         }}
-        component={AddProducts}
+        component={Products}
       />
     </Tab.Navigator>
   );

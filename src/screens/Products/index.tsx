@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,16 +14,20 @@ import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import RenderProduct from '../AddProducts/components/RenderProducts';
 import {Products as Productos} from '../../data-mock';
 import Button from '../../components/Button';
-// import {productsController} from './Controller/productsController';
+import {productsController} from './Controller/productsController';
 
 const Products = ({route}: any) => {
-  // const {allProducts} = productsController();
+  const {allProducts, fetchProducts, goToCreateProduct} = productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
     return (
       <RenderProduct item={item} isSelected={false} onPress={() => null} />
     );
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -60,7 +64,7 @@ const Products = ({route}: any) => {
               children="Agregar"
               isDisabled={false}
               type="primary"
-              onPress={() => null}
+              onPress={goToCreateProduct}
               key={'Button'}
             />
           </View>

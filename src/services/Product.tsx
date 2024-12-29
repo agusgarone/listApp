@@ -34,3 +34,8 @@ export const EditProduct = (product: IProduct) => {
     StorageService.setItem('products', productArray);
   });
 };
+
+export const getAllProducts = async function () {
+  const response: IProduct[] = await StorageService.getItem('products');
+  return response;
+};
