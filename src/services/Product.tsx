@@ -4,12 +4,16 @@ import {StorageService} from '../storage/asyncStorage';
 export const CreateProduct = (product: IProduct) => {
   StorageService.getItem('products').then((response: IProduct[]) => {
     const products = response;
-    const productExist = products.find(value => value.name === product.name);
-    if (productExist) {
-      console.log('El producto ya existe');
+    if (products) {
+      const productExist = products?.find(value => value.name === product.name);
+      if (productExist) {
+        console.log('El producto ya existe');
+      } else {
+        const productsArray = [...products, product];
+        StorageService.setItem('products', productsArray);
+      }
     } else {
-      const productsArray = [...products, product];
-      StorageService.setItem('products', productsArray);
+      StorageService.setItem('products', [product]);
     }
   });
 };

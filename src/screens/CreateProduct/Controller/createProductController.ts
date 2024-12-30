@@ -5,6 +5,7 @@ import {FormikState} from 'formik';
 import {FORM_STATUS} from '../../../common/utils/formStatus';
 import {CreateProduct} from '../../../services/Product';
 import {Alert, Keyboard} from 'react-native';
+import {categories} from '../../../data-mock';
 
 export const createProductController = () => {
   const navigation = useContext(NavigationContext);
@@ -19,15 +20,15 @@ export const createProductController = () => {
   ) => {
     actions.setStatus(FORM_STATUS.idle);
     if (values.name) {
-      const newList: IProduct = {
+      const newProduct: IProduct = {
         id: Math.floor(Math.random() * 900000) + 100000,
         name: values.name,
-        categoria: {
-          id: 1,
-          name: 'Fruta',
-        },
+        categoria: categories.find(
+          category => category.id.toString() === values.category,
+        ) || {id: 1, name: 'Fruta'},
       };
-      CreateProduct(newList);
+      console.log('newProduct', newProduct);
+      CreateProduct(newProduct);
       Keyboard.dismiss();
       actions.resetForm();
       navigation?.navigate('Home');

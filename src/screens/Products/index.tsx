@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -7,12 +8,10 @@ import {
   View,
 } from 'react-native';
 import Header from '../../components/Header';
-import List from '../../components/List';
 import theme from '../../common/theme';
 import {IProduct} from '../../models/product';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import RenderProduct from '../AddProducts/components/RenderProducts';
-import {Products as Productos} from '../../data-mock';
 import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
 
@@ -27,7 +26,7 @@ const Products = ({route}: any) => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [route.key]);
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -57,7 +56,16 @@ const Products = ({route}: any) => {
             </View>
           </View>
           <View style={Style.containerList}>
-            <List data={Productos} render={_renderProducts} />
+            <FlatList
+              style={{paddingVertical: 5}}
+              data={allProducts}
+              renderItem={_renderProducts}
+              ListEmptyComponent={() => (
+                <View style={Style.noProducts}>
+                  <Text style={Style.text}>¡No hay productos!</Text>
+                </View>
+              )}
+            />
           </View>
           <View style={Style.containerButton}>
             <Button
@@ -120,6 +128,17 @@ const Style = StyleSheet.create({
   containerButton: {
     flex: 1,
     display: 'flex',
+  },
+  noProducts: {
+    marginTop: 10,
+    minHeight: 250,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+  },
+  text: {
+    color: theme.colors.grey,
   },
 });
 

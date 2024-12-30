@@ -4,6 +4,8 @@ import {Formik} from 'formik';
 import {FormikInputValue} from '../../../components/FormikInput';
 import Button from '../../../components/Button';
 import {createProductController} from '../Controller/createProductController';
+import {FormikSelectValue} from '../../../components/FormikSelect';
+import {categories} from '../../../data-mock';
 
 const initialValues = {
   name: '',
@@ -23,10 +25,11 @@ const CreateProductForm = () => {
                 placeholder={'Nombre del producto'}
                 onChange={() => null}
               />
-              <FormikInputValue
+              <FormikSelectValue
                 name="category"
                 placeholder={'Categoria del producto'}
                 onChange={() => null}
+                options={categories}
               />
             </View>
             <View style={styles.containerResult}>

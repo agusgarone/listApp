@@ -32,7 +32,7 @@ const BottomTabs = () => {
         component={Home}
       />
       <Tab.Screen
-        name="Prueba"
+        name="CreateProduct"
         options={{header: () => null}}
         component={CreateProduct}
       />
