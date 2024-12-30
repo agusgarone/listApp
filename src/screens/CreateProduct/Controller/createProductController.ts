@@ -11,7 +11,7 @@ export const createProductController = () => {
   const navigation = useContext(NavigationContext);
 
   const handleFormikSubmit = async (
-    values: {name: string; category: string | undefined},
+    values: {name: string; category: number | undefined},
     actions: {
       setStatus: (arg0: string) => void;
       setSubmitting: (arg0: boolean) => void;
@@ -24,14 +24,13 @@ export const createProductController = () => {
         id: Math.floor(Math.random() * 900000) + 100000,
         name: values.name,
         categoria: categories.find(
-          category => category.id.toString() === values.category,
+          category => category.id === values.category,
         ) || {id: 1, name: 'Fruta'},
       };
-      console.log('newProduct', newProduct);
       CreateProduct(newProduct);
       Keyboard.dismiss();
       actions.resetForm();
-      navigation?.navigate('Home');
+      navigation?.goBack();
     } else {
       Alert.alert(
         'Hubo un error al crear el producto, intentelo de nuevo por favor!',

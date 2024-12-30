@@ -7,16 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Header from '../../components/Header';
 import theme from '../../common/theme';
 import {IProduct} from '../../models/product';
-import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import RenderProduct from '../AddProducts/components/RenderProducts';
 import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
 
 const Products = ({route}: any) => {
-  const {allProducts, fetchProducts, goToCreateProduct} = productsController();
+  const {allProducts, goToCreateProduct} = productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
     return (
@@ -24,29 +22,9 @@ const Products = ({route}: any) => {
     );
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, [route.key]);
-
   return (
     <SafeAreaView style={Style.screen}>
       <View style={Style.selectList}>
-        <Header
-          center={<></>}
-          left={
-            <TouchableOpacity onPress={() => null}>
-              <Icon
-                name="arrow-left"
-                type={IconType.FontAwesome}
-                size={25}
-                color={theme.colors.grey}
-                onPress={() => {}}
-              />
-            </TouchableOpacity>
-          }
-          right={<></>}
-          key={'Header'}
-        />
         <View style={Style.content}>
           <View style={Style.header}>
             <View style={{flexDirection: 'row'}}>
@@ -89,6 +67,7 @@ const Style = StyleSheet.create({
   selectList: {
     flex: 1,
     justifyContent: 'flex-start',
+    marginTop: 32,
   },
   content: {
     flex: 1,
@@ -124,10 +103,11 @@ const Style = StyleSheet.create({
   containerList: {
     flex: 9,
     display: 'flex',
+    paddingBottom: 12,
   },
   containerButton: {
-    flex: 1,
     display: 'flex',
+    marginBottom: 32,
   },
   noProducts: {
     marginTop: 10,

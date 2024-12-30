@@ -7,18 +7,11 @@ import theme from '../../../common/theme';
 import {listDetailController} from '../Controller/listDetailController';
 
 const Content = ({id}: {id: string}) => {
-  const {listSelected, getListByID, goHome} = listDetailController();
+  const {listSelected, getListByID} = listDetailController();
 
   useEffect(() => {
     getListByID(id);
   }, [id]);
-
-  useEffect(() => {
-    if (!listSelected) {
-      Alert.alert('¡Esta lista no existe!');
-      goHome();
-    }
-  });
 
   const _renderProducts = ({item}: {item: IProduct}) => {
     const isSelected = false;

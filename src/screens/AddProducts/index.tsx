@@ -1,27 +1,26 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import Content from './components/Content';
 import Header from '../../components/Header';
-import {NavigationContext} from '@react-navigation/native';
-import {useContext} from 'react';
 import theme from '../../common/theme';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
+import {addProductsController} from './controller/addProductsController';
 
 const AddProducts = () => {
-  const navigation = useContext(NavigationContext);
+  const {goBack} = addProductsController();
 
   return (
     <SafeAreaView style={Style.screen}>
       <Header
         center={<></>}
         left={
-          <TouchableOpacity onPress={() => navigation?.goBack()}>
+          <TouchableOpacity onPress={goBack}>
             <Icon
               name="arrow-left"
               type={IconType.FontAwesome}
               size={25}
               color={theme.colors.grey}
-              onPress={() => {}}
+              onPress={goBack}
             />
           </TouchableOpacity>
         }

@@ -39,14 +39,11 @@ export const createListController = () => {
     }
   };
 
-  const goBack = () => navigation?.goBack();
-
   const goToAddProducts = () => navigation?.navigate('AddProducts');
 
   return {
     products,
     handleFormikSubmit,
-    goBack,
     goToAddProducts,
   };
 };

@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {IProduct} from '../../../models/product';
 import {GlobalStateService} from '../../../services/globalStates';
 import {NavigationContext} from '@react-navigation/native';
@@ -11,11 +11,16 @@ export const productsController = () => {
 
   const fetchProducts = async () => {
     const responseGetAllProducts = await getAllProducts();
-    console.log('responseGetAllProducts', responseGetAllProducts);
     setAllProducts(responseGetAllProducts);
   };
 
   const goToCreateProduct = () => navigation?.navigate('CreateProduct');
+
+  useEffect(() => {
+    navigation?.addListener('focus', () => {
+      fetchProducts();
+    });
+  }, []);
 
   //   const onPress = ({item}: {item: IProduct}) => {
   //     if (productsSelected.length) {
@@ -38,7 +43,6 @@ export const productsController = () => {
 
   return {
     allProducts,
-    fetchProducts,
     goToCreateProduct,
   };
 };

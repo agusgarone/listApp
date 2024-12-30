@@ -21,7 +21,7 @@ const ListDetail = ({route}: any) => {
               type={IconType.FontAwesome}
               size={25}
               color={theme.colors.grey}
-              onPress={() => {}}
+              onPress={goBack}
             />
           </TouchableOpacity>
         }

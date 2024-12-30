@@ -3,10 +3,12 @@ import {IProduct} from '../models/product';
 
 interface IInitialValuesState {
   productsSelected: IProduct[];
+  valuesSearched: IProduct[];
 }
 
 const initialValues: IInitialValuesState = {
   productsSelected: [],
+  valuesSearched: [],
 };
 
 const globalSessionState = create(() => initialValues);
@@ -16,6 +18,10 @@ export const GlobalStateService = {
     return globalSessionState((state: any) => state.productsSelected);
   },
 
+  getValuesSearched() {
+    return globalSessionState((state: any) => state.valuesSearched);
+  },
+
   setProductsSelected(productsSelected: IProduct[]) {
     globalSessionState.setState((prev: any) => ({
       ...prev,
@@ -23,7 +29,18 @@ export const GlobalStateService = {
     }));
   },
 
+  setValuesSearched(valuesSearched: IProduct[]) {
+    globalSessionState.setState((prev: any) => ({
+      ...prev,
+      valuesSearched,
+    }));
+  },
+
   getStateProductsSelected() {
     return globalSessionState.getState().productsSelected;
+  },
+
+  getStateValuesSearched() {
+    return globalSessionState.getState().valuesSearched;
   },
 };

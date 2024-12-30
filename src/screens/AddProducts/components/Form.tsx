@@ -1,26 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Keyboard} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 
 import {FormikInputValue} from '../../../components/FormikInput';
-import {IProduct} from '../../../models/product';
-import {Products} from '../../../data-mock';
-
-interface IBottomSheetForm {
-  setSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  setMessage: React.Dispatch<React.SetStateAction<string>>;
-  setValues: React.Dispatch<React.SetStateAction<IProduct[]>>;
-}
+import {addProductsController} from '../controller/addProductsController';
 
 const initialValues = {
   textSearched: '',
 };
 
-const BottomSheetForm = ({
-  setSearch,
-  setMessage,
-  setValues,
-}: IBottomSheetForm) => {
+const BottomSheetForm = () => {
+  const {handleFormikSubmit} = addProductsController();
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -32,19 +22,6 @@ const BottomSheetForm = ({
 
   const handleInputChange = (value: string) => {
     setQuery(value);
-  };
-
-  const handleFormikSubmit = async (values: {textSearched: string}) => {
-    // actions.setStatus(FORM_STATUS.idle);
-    setSearch(true);
-    console.log(values);
-    const productsFilter = Products.filter(value =>
-      value.name
-        .toLocaleLowerCase()
-        .includes(values.textSearched.toLocaleLowerCase()),
-    );
-    setValues(productsFilter);
-    Keyboard.dismiss();
   };
 
   return (

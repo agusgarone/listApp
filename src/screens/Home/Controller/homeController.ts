@@ -9,7 +9,6 @@ export const homeController = () => {
 
   const navigateToListDetail = (id: string) => {
     navigation?.navigate('ListDetail', {id: id});
-    // * Aca deberia de ir a la nueva pantalla donde podes ver el detalle de la lista e ir tachando lo que ya tenes
   };
 
   navigation?.addListener('focus', () => {

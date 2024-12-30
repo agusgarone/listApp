@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import BottomSheetForm from './Form';
 import Button from '../../../components/Button';
@@ -6,11 +6,9 @@ import List from '../../../components/List';
 import {IProduct} from '../../../models/product';
 import RenderProduct from './RenderProducts';
 import {addProductsController} from '../controller/addProductsController';
+import {GlobalStateService} from '../../../services/globalStates';
 
 const Content = () => {
-  const [search, setSearch] = useState(false);
-  const [message, setMessage] = useState<string>('');
-  const [values, setValues] = useState<IProduct[]>([]);
   const {productsSelected, handleButton, onPress} = addProductsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
@@ -23,15 +21,13 @@ const Content = () => {
 
   return (
     <View style={styles.centeredView}>
-      <BottomSheetForm
-        key={'form-bottom-sheet'}
-        setSearch={setSearch}
-        setMessage={setMessage}
-        setValues={setValues}
-      />
+      <BottomSheetForm key={'form-bottom-sheet'} />
       <View style={styles.containerResult}>
         <View style={styles.containerList}>
-          <List data={values} render={_renderProducts} />
+          <List
+            data={GlobalStateService.getValuesSearched()}
+            render={_renderProducts}
+          />
         </View>
         <View style={styles.containerButton}>
           <Button type="primary" onPress={handleButton}>
@@ -55,6 +51,7 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   containerList: {
+    marginTop: 12,
     flex: 4,
     width: '100%',
     display: 'flex',

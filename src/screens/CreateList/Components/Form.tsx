@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   containerButton: {
-    flex: 1,
     width: '100%',
     display: 'flex',
+    marginBottom: 32,
   },
 });
 
