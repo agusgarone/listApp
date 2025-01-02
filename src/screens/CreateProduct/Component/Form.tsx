@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Formik} from 'formik';
+import {Formik, useFormikContext} from 'formik';
 import {FormikInputValue} from '../../../components/FormikInput';
 import Button from '../../../components/Button';
 import {createProductController} from '../Controller/createProductController';
 import {FormikSelectValue} from '../../../components/FormikSelect';
 import {categories} from '../../../data-mock';
 
-const initialValues = {
-  name: '',
-  category: undefined,
-};
+const CreateProductForm = ({idProduct}: {idProduct: number | null}) => {
+  const {handleFormikSubmit, initialValues} =
+    createProductController(idProduct);
 
-const CreateProductForm = () => {
-  const {handleFormikSubmit} = createProductController();
   return (
-    <Formik initialValues={initialValues} onSubmit={handleFormikSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleFormikSubmit}
+      enableReinitialize
+      validateOnMount>
       {({handleSubmit}) => {
         return (
           <View style={styles.form}>

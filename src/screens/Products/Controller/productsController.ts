@@ -16,33 +16,18 @@ export const productsController = () => {
 
   const goToCreateProduct = () => navigation?.navigate('CreateProduct');
 
+  const goToEditProduct = (id: number) =>
+    navigation?.navigate('CreateProduct', {id: id});
+
   useEffect(() => {
     navigation?.addListener('focus', () => {
       fetchProducts();
     });
   }, []);
 
-  //   const onPress = ({item}: {item: IProduct}) => {
-  //     if (productsSelected.length) {
-  //       const alreadyExist = productsSelected.find(prod => prod.id === item.id);
-  //       if (alreadyExist) {
-  //         const newArray = productsSelected.filter(prod => prod.id !== item.id);
-  //         setProductsSelected(newArray);
-  //       } else {
-  //         setProductsSelected([...productsSelected, item]);
-  //       }
-  //     } else {
-  //       setProductsSelected([...productsSelected, item]);
-  //     }
-  //   };
-
-  //   const handleButton = () => {
-  //     GlobalStateService.setProductsSelected(productsSelected);
-  //     navigation?.navigate('CreateList', {params: productsSelected});
-  //   };
-
   return {
     allProducts,
     goToCreateProduct,
+    goToEditProduct,
   };
 };

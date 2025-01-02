@@ -43,3 +43,12 @@ export const getAllProducts = async function () {
   const response: IProduct[] = await StorageService.getItem('products');
   return response;
 };
+
+export const getProductByID = async function (id: number) {
+  const response: IProduct[] = await StorageService.getItem('products');
+  const findProduct = response.find(it => it.id === id);
+  if (findProduct) {
+    return findProduct;
+  }
+  return null;
+};

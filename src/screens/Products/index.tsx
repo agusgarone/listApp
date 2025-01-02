@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -14,11 +14,16 @@ import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
 
 const Products = ({route}: any) => {
-  const {allProducts, goToCreateProduct} = productsController();
+  const {allProducts, goToCreateProduct, goToEditProduct} =
+    productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
     return (
-      <RenderProduct item={item} isSelected={false} onPress={() => null} />
+      <RenderProduct
+        item={item}
+        isSelected={false}
+        onPress={() => goToEditProduct(item.id)}
+      />
     );
   };
 
@@ -42,6 +47,9 @@ const Products = ({route}: any) => {
                 <View style={Style.noProducts}>
                   <Text style={Style.text}>¡No hay productos!</Text>
                 </View>
+              )}
+              ListFooterComponent={() => (
+                <View style={Style.marginListFooter}></View>
               )}
             />
           </View>
@@ -119,6 +127,9 @@ const Style = StyleSheet.create({
   },
   text: {
     color: theme.colors.grey,
+  },
+  marginListFooter: {
+    marginVertical: 20,
   },
 });
 

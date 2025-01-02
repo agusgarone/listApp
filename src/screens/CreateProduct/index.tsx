@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import CreateProductForm from './Component/Form';
 import {createProductController} from './Controller/createProductController';
 
-const CreateProduct = () => {
+const CreateProduct = ({route}: any) => {
   const {goBack} = createProductController();
 
   return (
@@ -27,7 +27,7 @@ const CreateProduct = () => {
               type={IconType.FontAwesome}
               size={25}
               color={theme.colors.grey}
-              onPress={() => {}}
+              onPress={goBack}
             />
           </TouchableOpacity>
         }
@@ -35,7 +35,7 @@ const CreateProduct = () => {
         key={'Header'}
       />
       <View style={Style.content}>
-        <CreateProductForm />
+        <CreateProductForm idProduct={route?.params?.id || null} />
       </View>
     </SafeAreaView>
   );
