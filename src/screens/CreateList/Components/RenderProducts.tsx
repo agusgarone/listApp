@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {IProduct} from '../../../models/product';
 import theme from '../../../common/theme';
+import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 
 const RenderProduct = ({
   item,
@@ -13,7 +14,13 @@ const RenderProduct = ({
   return (
     <View style={style.view}>
       <Text style={style.text}>{item.name}</Text>
-      <Text style={style.text}>Cancel</Text>
+      <Icon
+        name="times"
+        type={IconType.FontAwesome}
+        size={25}
+        color={theme.colors.grey}
+        // onPress={goBack}
+      />
     </View>
   );
 };

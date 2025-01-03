@@ -7,7 +7,8 @@ import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {addProductsController} from './controller/addProductsController';
 
 const AddProducts = () => {
-  const {goBack} = addProductsController();
+  const {goBack, handleButton, handleFormikSubmit, onPress, productsSelected} =
+    addProductsController();
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -27,7 +28,12 @@ const AddProducts = () => {
         right={<></>}
         key={'Header'}
       />
-      <Content />
+      <Content
+        handleButton={handleButton}
+        handleFormikSubmit={handleFormikSubmit}
+        onPress={onPress}
+        productsSelected={productsSelected}
+      />
     </SafeAreaView>
   );
 };

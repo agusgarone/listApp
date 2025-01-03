@@ -1,18 +1,32 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Formik} from 'formik';
+import {Formik, FormikState} from 'formik';
 import {FormikInputValue} from '../../../components/FormikInput';
 import Button from '../../../components/Button';
-import {createListController} from '../Controller/createListController';
 
-const initialValues = {
-  name: '',
-};
-
-const CreateListForm = ({children}: {children: JSX.Element}) => {
-  const {handleFormikSubmit} = createListController();
+const CreateListForm = ({
+  children,
+  initialValues,
+  handleFormikSubmit,
+}: {
+  children: JSX.Element;
+  initialValues: {name: string};
+  handleFormikSubmit: (
+    values: {
+      name: string;
+    },
+    actions: {
+      setStatus: (arg0: string) => void;
+      setSubmitting: (arg0: boolean) => void;
+      resetForm: (nextState?: Partial<FormikState<any>>) => void;
+    },
+  ) => Promise<any>;
+}) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={handleFormikSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleFormikSubmit}
+      enableReinitialize>
       {({handleSubmit}) => {
         return (
           <View style={styles.form}>

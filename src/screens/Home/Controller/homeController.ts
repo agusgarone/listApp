@@ -11,6 +11,10 @@ export const homeController = () => {
     navigation?.navigate('ListDetail', {id: id});
   };
 
+  const navigateToEditList = (id: string) => {
+    navigation?.navigate('MainTabs', {screen: 'CreateList', params: {id: id}});
+  };
+
   navigation?.addListener('focus', () => {
     StorageService.getItem('lists').then(res => {
       setList(res);
@@ -20,5 +24,6 @@ export const homeController = () => {
   return {
     list,
     navigateToListDetail,
+    navigateToEditList,
   };
 };

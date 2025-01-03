@@ -5,12 +5,19 @@ import Button from '../../../components/Button';
 import List from '../../../components/List';
 import {IProduct} from '../../../models/product';
 import RenderProduct from './RenderProducts';
-import {addProductsController} from '../controller/addProductsController';
 import {GlobalStateService} from '../../../services/globalStates';
 
-const Content = () => {
-  const {productsSelected, handleButton, onPress} = addProductsController();
-
+const Content = ({
+  handleButton,
+  onPress,
+  productsSelected,
+  handleFormikSubmit,
+}: {
+  productsSelected: IProduct[];
+  handleButton: () => void;
+  onPress: ({item}: {item: IProduct}) => void;
+  handleFormikSubmit: (values: {textSearched: string}) => Promise<void>;
+}) => {
   const _renderProducts = ({item}: {item: IProduct}) => {
     const findProd = productsSelected.find(prod => prod.id === item.id);
     const isSelected = findProd !== undefined;
@@ -21,7 +28,10 @@ const Content = () => {
 
   return (
     <View style={styles.centeredView}>
-      <BottomSheetForm key={'form-bottom-sheet'} />
+      <BottomSheetForm
+        handleFormikSubmit={handleFormikSubmit}
+        key={'form-bottom-sheet'}
+      />
       <View style={styles.containerResult}>
         <View style={styles.containerList}>
           <List

@@ -1,11 +1,5 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
 import theme from '../../common/theme';
 
 import Header from '../../components/Header';

@@ -8,11 +8,15 @@ import theme from '../../common/theme';
 import {homeController} from './Controller/homeController';
 
 const Home = () => {
-  const {list, navigateToListDetail} = homeController();
+  const {list, navigateToListDetail, navigateToEditList} = homeController();
 
   const _renderList = ({item}: {item: IList}) => {
     return (
-      <RenderList item={item} navigateToListDetail={navigateToListDetail} />
+      <RenderList
+        item={item}
+        navigateToListDetail={navigateToListDetail}
+        navigateToEditList={navigateToEditList}
+      />
     );
   };
 

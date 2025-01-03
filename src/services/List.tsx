@@ -38,3 +38,17 @@ export const EditList = (list: IList) => {
     StorageService.setItem('lists', listsArray);
   });
 };
+
+export const getAllList = async function () {
+  const response: IList[] = await StorageService.getItem('lists');
+  return response;
+};
+
+export const getListByID = async function (id: number) {
+  const response: IList[] = await StorageService.getItem('lists');
+  const findList = response.find(it => it.id === id);
+  if (findList) {
+    return findList;
+  }
+  return null;
+};

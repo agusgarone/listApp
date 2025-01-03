@@ -6,14 +6,17 @@ import theme from '../../../common/theme';
 const RenderList = ({
   item,
   navigateToListDetail,
+  navigateToEditList,
 }: {
   item: IList;
   navigateToListDetail: (id: string) => void;
+  navigateToEditList: (id: string) => void;
 }) => {
   return (
     <TouchableOpacity
       style={style.view}
-      onPress={() => navigateToListDetail(item.id.toString())}>
+      onPress={() => navigateToListDetail(item.id.toString())}
+      onLongPress={() => navigateToEditList(item.id.toString())}>
       <Text style={style.name}>{item.name}</Text>
       <Text style={style.subtitle}>
         {`${item.products.length} ${

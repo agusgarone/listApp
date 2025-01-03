@@ -3,14 +3,16 @@ import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 
 import {FormikInputValue} from '../../../components/FormikInput';
-import {addProductsController} from '../controller/addProductsController';
 
 const initialValues = {
   textSearched: '',
 };
 
-const BottomSheetForm = () => {
-  const {handleFormikSubmit} = addProductsController();
+const BottomSheetForm = ({
+  handleFormikSubmit,
+}: {
+  handleFormikSubmit: (values: {textSearched: string}) => Promise<void>;
+}) => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
