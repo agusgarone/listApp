@@ -21,7 +21,7 @@ export const CreateProduct = (product: IProduct) => {
 export const RemoveProduct = (product: IProduct) => {
   StorageService.getItem('products').then((response: IProduct[]) => {
     const products = response;
-    const productArray = products.filter(value => value.name === product.name);
+    const productArray = products.filter(value => value.name !== product.name);
     StorageService.setItem('products', productArray);
   });
 };

@@ -91,6 +91,7 @@ export const createListController = () => {
       }
       Keyboard.dismiss();
       GlobalStateService.setProductsSelected([]);
+      setInitialValues({name: ''});
       actions.resetForm();
       navigation?.navigate('Home');
     } else {

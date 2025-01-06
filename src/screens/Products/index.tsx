@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import theme from '../../common/theme';
 import {IProduct} from '../../models/product';
-import RenderProduct from '../AddProducts/components/RenderProducts';
+import RenderProduct from './Components/RenderProducts';
 import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
 
 const Products = ({route}: any) => {
-  const {allProducts, goToCreateProduct, goToEditProduct} =
+  const {allProducts, goToCreateProduct, goToDeleteProduct} =
     productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
@@ -22,7 +22,7 @@ const Products = ({route}: any) => {
       <RenderProduct
         item={item}
         isSelected={false}
-        onPress={() => goToEditProduct(item.id)}
+        onPress={() => goToDeleteProduct(item)}
       />
     );
   };

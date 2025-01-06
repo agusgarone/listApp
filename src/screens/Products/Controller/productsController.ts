@@ -2,7 +2,8 @@ import {useContext, useEffect, useState} from 'react';
 import {IProduct} from '../../../models/product';
 import {GlobalStateService} from '../../../services/globalStates';
 import {NavigationContext} from '@react-navigation/native';
-import {getAllProducts} from '../../../services/Product';
+import {getAllProducts, RemoveProduct} from '../../../services/Product';
+import {Alert} from 'react-native';
 
 export const productsController = () => {
   const navigation = useContext(NavigationContext);
@@ -14,10 +15,24 @@ export const productsController = () => {
     setAllProducts(responseGetAllProducts);
   };
 
+  const DialogDeleteProduct = (product: IProduct) =>
+    Alert.alert(
+      `¡Atención!`,
+      `Va a eliminar el producto con nombre: ${product.name}`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => RemoveProduct(product)},
+      ],
+    );
+
   const goToCreateProduct = () => navigation?.navigate('CreateProduct');
 
-  const goToEditProduct = (id: number) =>
-    navigation?.navigate('CreateProduct', {id: id});
+  const handleDeleteProduct = (product: IProduct) =>
+    DialogDeleteProduct(product);
 
   useEffect(() => {
     navigation?.addListener('focus', () => {
@@ -28,6 +43,6 @@ export const productsController = () => {
   return {
     allProducts,
     goToCreateProduct,
-    goToEditProduct,
+    handleDeleteProduct,
   };
 };
