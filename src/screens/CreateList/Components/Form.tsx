@@ -3,13 +3,16 @@ import {View, StyleSheet} from 'react-native';
 import {Formik, FormikState} from 'formik';
 import {FormikInputValue} from '../../../components/FormikInput';
 import Button from '../../../components/Button';
+import {Content} from './Content';
+import {IProduct} from '../../../models/product';
+import RenderProduct from './RenderProducts';
 
 const CreateListForm = ({
-  children,
+  goToAddProducts,
+  products,
   initialValues,
   handleFormikSubmit,
 }: {
-  children: JSX.Element;
   initialValues: {name: string};
   handleFormikSubmit: (
     values: {
@@ -21,13 +24,19 @@ const CreateListForm = ({
       resetForm: (nextState?: Partial<FormikState<any>>) => void;
     },
   ) => Promise<any>;
+  goToAddProducts: (values: {name: string}) => void;
+  products: IProduct[];
 }) => {
+  const _renderProducts = ({item}: {item: IProduct}) => {
+    return <RenderProduct item={item} onPress={() => null} />;
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleFormikSubmit}
       enableReinitialize>
-      {({handleSubmit}) => {
+      {({handleSubmit, values}) => {
         return (
           <View style={styles.form}>
             <View style={{marginTop: 16}}>
@@ -38,7 +47,11 @@ const CreateListForm = ({
               />
             </View>
             <View style={styles.containerResult}>
-              {children}
+              <Content
+                _renderProducts={_renderProducts}
+                goToAddProducts={() => goToAddProducts(values)}
+                products={products}
+              />
               <View style={styles.containerButton}>
                 <Button
                   children="Listo"

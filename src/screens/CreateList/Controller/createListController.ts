@@ -1,4 +1,4 @@
-import {useContext, useEffect, useMemo, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {IProduct} from '../../../models/product';
 import {GlobalStateService} from '../../../services/globalStates';
 import {NavigationContext, RouteProp} from '@react-navigation/native';
@@ -10,6 +10,7 @@ import {CreateList, EditList, getListByID} from '../../../services/List';
 import {Alert, Keyboard} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {RootTabParamList} from '../../../models/RootTabParamList';
+import {StorageService} from '../../../storage/asyncStorage';
 
 type CreateListScreenRouteProp = RouteProp<RootTabParamList, 'CreateList'>;
 
@@ -20,6 +21,7 @@ export const createListController = () => {
     GlobalStateService.getProductsSelected(),
   );
   const [list, setList] = useState<IList | null>(null);
+  const [idListStorage, setIdListStorage] = useState<string>();
   const [initialValues, setInitialValues] = useState({
     name: '',
   });
@@ -27,14 +29,17 @@ export const createListController = () => {
   useEffect(() => {
     navigation?.addListener('focus', () => {
       if (route?.params?.id) {
+        StorageService.setItem('idList', route.params.id);
         getList(parseInt(route?.params?.id, 10));
+      } else {
+        getNameListFromStorage();
+        getIdListFromStorage();
       }
     });
   }, []);
 
   useEffect(() => {
     if (list) {
-      console.log('list', list);
       setInitialValues({
         name: list?.name || '',
       });
@@ -54,16 +59,27 @@ export const createListController = () => {
     },
   ) => {
     actions.setStatus(FORM_STATUS.idle);
+
+    const listValues =
+      route?.params?.id && list
+        ? list
+        : idListStorage
+        ? await getListByID(parseInt(idListStorage, 10))
+        : null;
+
     if (values.name) {
-      if (route?.params?.id && list) {
+      if (listValues) {
         const editList: IList = {
-          fechaAlta: list.fechaAlta,
+          fechaAlta: listValues.fechaAlta,
           name: values.name,
           products: products ?? [],
-          id: list.id,
+          id: listValues.id,
         };
         EditList(editList);
         setList(null);
+        setProducts([]);
+        StorageService.removeItem('idList');
+        StorageService.removeItem('nameList');
       } else {
         const newList: IList = {
           fechaAlta: moment().format('DD-MM-YYYY'),
@@ -89,7 +105,26 @@ export const createListController = () => {
     }
   };
 
-  const goToAddProducts = () => navigation?.navigate('AddProducts');
+  const getNameListFromStorage = async () => {
+    const nameList = await StorageService.getItem('nameList');
+    if (nameList) {
+      setInitialValues({
+        name: nameList,
+      });
+    }
+  };
+
+  const getIdListFromStorage = async () => {
+    const idList = await StorageService.getItem('idList');
+    if (idList) {
+      setIdListStorage(idList);
+    }
+  };
+
+  const goToAddProducts = (values: {name: string}) => {
+    StorageService.setItem('nameList', values.name);
+    navigation?.navigate('AddProducts');
+  };
 
   return {
     products,
