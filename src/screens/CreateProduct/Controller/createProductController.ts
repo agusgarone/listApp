@@ -47,28 +47,29 @@ export const createProductController = (idProduct?: number | null) => {
   ) => {
     actions.setStatus(FORM_STATUS.idle);
     if (values.name) {
-      if (idProduct && product) {
-        const editProduct: IProduct = {
-          id: product?.id,
-          name: values.name,
-          categoria: categories.find(
-            category => category.id === values.category,
-          ) || {id: 1, name: 'Fruta'},
-        };
-        EditProduct(editProduct);
-      } else {
-        const newProduct: IProduct = {
-          id: Math.floor(Math.random() * 900000) + 100000,
-          name: values.name,
-          categoria: categories.find(
-            category => category.id === values.category,
-          ) || {id: 1, name: 'Fruta'},
-        };
-        CreateProduct(newProduct);
-      }
+      // * Se hizo la edicion pero despues decidí sacar es funcionalidad para que solo exista la baja y alta de productos
+      // if (idProduct && product) {
+      //   const editProduct: IProduct = {
+      //     id: product?.id,
+      //     name: values.name,
+      //     categoria: categories.find(
+      //       category => category.id === values.category,
+      //     ) || {id: 1, name: 'Fruta'},
+      //   };
+      //   EditProduct(editProduct);
+      // } else {
+      const newProduct: IProduct = {
+        id: Math.floor(Math.random() * 900000) + 100000,
+        name: values.name,
+        categoria: categories.find(
+          category => category.id === values.category,
+        ) || {id: 1, name: 'Fruta'},
+      };
+      await CreateProduct(newProduct);
+      // }
       Keyboard.dismiss();
       actions.resetForm();
-      navigation?.goBack();
+      navigation?.navigate('MainTabs', {screen: 'Products'});
     } else {
       Alert.alert(
         'Hubo un error al crear el producto, intentelo de nuevo por favor!',

@@ -11,8 +11,9 @@ export const homeController = () => {
     navigation?.navigate('ListDetail', {id: id});
   };
 
-  const navigateToEditList = (id: string) => {
-    navigation?.navigate('MainTabs', {screen: 'CreateList', params: {id: id}});
+  const navigateToEditList = async (id: string) => {
+    await StorageService.setItem('idList', id);
+    navigation?.navigate('MainTabs', {screen: 'CreateList'});
   };
 
   navigation?.addListener('focus', () => {

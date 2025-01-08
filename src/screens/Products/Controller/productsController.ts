@@ -25,9 +25,19 @@ export const productsController = () => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => RemoveProduct(product)},
+        {
+          text: 'OK',
+          onPress: () => handleDelete(product),
+        },
       ],
     );
+
+  const handleDelete = async (product: IProduct) => {
+    const responseRemoveProduct = await RemoveProduct(product);
+    if (responseRemoveProduct.length) {
+      setAllProducts(responseRemoveProduct);
+    }
+  };
 
   const goToCreateProduct = () => navigation?.navigate('CreateProduct');
 

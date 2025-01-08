@@ -13,8 +13,8 @@ import RenderProduct from './Components/RenderProducts';
 import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
 
-const Products = ({route}: any) => {
-  const {allProducts, goToCreateProduct, goToDeleteProduct} =
+const Products = () => {
+  const {allProducts, goToCreateProduct, handleDeleteProduct} =
     productsController();
 
   const _renderProducts = ({item}: {item: IProduct}) => {
@@ -22,7 +22,7 @@ const Products = ({route}: any) => {
       <RenderProduct
         item={item}
         isSelected={false}
-        onPress={() => goToDeleteProduct(item)}
+        onPress={() => handleDeleteProduct(item)}
       />
     );
   };

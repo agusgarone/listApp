@@ -8,7 +8,6 @@ import moment from 'moment';
 import {IList} from '../../../models/list';
 import {CreateList, EditList, getListByID} from '../../../services/List';
 import {Alert, Keyboard} from 'react-native';
-import {useRoute} from '@react-navigation/native';
 import {RootTabParamList} from '../../../models/RootTabParamList';
 import {StorageService} from '../../../storage/asyncStorage';
 
@@ -16,25 +15,18 @@ type CreateListScreenRouteProp = RouteProp<RootTabParamList, 'CreateList'>;
 
 export const createListController = () => {
   const navigation = useContext(NavigationContext);
-  const route = useRoute<CreateListScreenRouteProp>();
   const [products, setProducts] = useState<IProduct[]>(
     GlobalStateService.getProductsSelected(),
   );
   const [list, setList] = useState<IList | null>(null);
-  const [idListStorage, setIdListStorage] = useState<string>();
   const [initialValues, setInitialValues] = useState({
     name: '',
   });
 
   useEffect(() => {
     navigation?.addListener('focus', () => {
-      if (route?.params?.id) {
-        StorageService.setItem('idList', route.params.id);
-        getList(parseInt(route?.params?.id, 10));
-      } else {
-        getNameListFromStorage();
-        getIdListFromStorage();
-      }
+      getList();
+      getNameListFromStorage();
     });
   }, []);
 
@@ -59,27 +51,18 @@ export const createListController = () => {
     },
   ) => {
     actions.setStatus(FORM_STATUS.idle);
-
-    const listValues =
-      route?.params?.id && list
-        ? list
-        : idListStorage
-        ? await getListByID(parseInt(idListStorage, 10))
-        : null;
+    const currentList: IList = await StorageService.getItem('currentList');
+    const isEditing: boolean = await StorageService.getItem('isEditing');
 
     if (values.name) {
-      if (listValues) {
+      if (currentList && isEditing) {
         const editList: IList = {
-          fechaAlta: listValues.fechaAlta,
+          fechaAlta: currentList.fechaAlta,
           name: values.name,
           products: products ?? [],
-          id: listValues.id,
+          id: currentList.id,
         };
-        EditList(editList);
-        setList(null);
-        setProducts([]);
-        StorageService.removeItem('idList');
-        StorageService.removeItem('nameList');
+        await EditList(editList);
       } else {
         const newList: IList = {
           fechaAlta: moment().format('DD-MM-YYYY'),
@@ -87,22 +70,36 @@ export const createListController = () => {
           products: products ?? [],
           id: Math.floor(Math.random() * 900000) + 100000,
         };
-        CreateList(newList);
+        await CreateList(newList);
       }
+      await resetVariablesAndStates();
       Keyboard.dismiss();
-      GlobalStateService.setProductsSelected([]);
-      setInitialValues({name: ''});
       actions.resetForm();
-      navigation?.navigate('Home');
+      navigation?.navigate('MainTabs', {screen: 'Home'});
     } else {
       Alert.alert('Agregá un nombre a la lista, por favor!');
     }
   };
 
-  const getList = async (id: number) => {
-    const response = await getListByID(id);
-    if (!list && response) {
-      setList(response);
+  const resetVariablesAndStates = async () => {
+    await StorageService.removeItem('nameList');
+    await StorageService.removeItem('currentList');
+    await StorageService.removeItem('isEditing');
+    setProducts([]);
+    GlobalStateService.setProductsSelected([]);
+    setInitialValues({name: ''});
+  };
+
+  const getList = async () => {
+    const idList: string = await StorageService.getItem('idList');
+    if (idList) {
+      await StorageService.setItem('isEditing', true);
+      await StorageService.removeItem('idList');
+      const responseGetList = await getListByID(parseInt(idList, 10));
+      if (responseGetList) {
+        await StorageService.setItem('currentList', responseGetList);
+        setList(responseGetList);
+      }
     }
   };
 
@@ -112,13 +109,6 @@ export const createListController = () => {
       setInitialValues({
         name: nameList,
       });
-    }
-  };
-
-  const getIdListFromStorage = async () => {
-    const idList = await StorageService.getItem('idList');
-    if (idList) {
-      setIdListStorage(idList);
     }
   };
 

@@ -1,42 +1,47 @@
 import {IProduct} from '../models/product';
 import {StorageService} from '../storage/asyncStorage';
 
-export const CreateProduct = (product: IProduct) => {
-  StorageService.getItem('products').then((response: IProduct[]) => {
-    const products = response;
-    if (products) {
-      const productExist = products?.find(value => value.name === product.name);
-      if (productExist) {
-        console.log('El producto ya existe');
-      } else {
-        const productsArray = [...products, product];
-        StorageService.setItem('products', productsArray);
-      }
+export const CreateProduct = async (product: IProduct) => {
+  const responseGetProducts: IProduct[] = await StorageService.getItem(
+    'products',
+  );
+  if (responseGetProducts) {
+    const productExist = responseGetProducts?.find(
+      value => value.name === product.name,
+    );
+    if (productExist) {
+      console.log('El producto ya existe');
     } else {
-      StorageService.setItem('products', [product]);
+      const productsArray = [...responseGetProducts, product];
+      await StorageService.setItem('products', productsArray);
     }
-  });
+  } else {
+    await StorageService.setItem('products', [product]);
+  }
 };
 
-export const RemoveProduct = (product: IProduct) => {
-  StorageService.getItem('products').then((response: IProduct[]) => {
-    const products = response;
-    const productArray = products.filter(value => value.name !== product.name);
-    StorageService.setItem('products', productArray);
-  });
+export const RemoveProduct = async (product: IProduct) => {
+  const responseGetProducts: IProduct[] = await StorageService.getItem(
+    'products',
+  );
+  const productArray = responseGetProducts.filter(
+    value => value.name !== product.name,
+  );
+  await StorageService.setItem('products', productArray);
+  return productArray;
 };
 
-export const EditProduct = (product: IProduct) => {
-  StorageService.getItem('products').then((response: IProduct[]) => {
-    const products = response;
-    const productArray = products.map(value => {
-      if (value.id === product.id) {
-        return product;
-      }
-      return value;
-    });
-    StorageService.setItem('products', productArray);
+export const EditProduct = async (product: IProduct) => {
+  const responseGetProducts: IProduct[] = await StorageService.getItem(
+    'products',
+  );
+  const productArray = responseGetProducts.map(value => {
+    if (value.id === product.id) {
+      return product;
+    }
+    return value;
   });
+  await StorageService.setItem('products', productArray);
 };
 
 export const getAllProducts = async function () {
