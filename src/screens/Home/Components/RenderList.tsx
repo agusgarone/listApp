@@ -2,13 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {IList} from '../../../models/list';
 import theme from '../../../common/theme';
+import {IProduct} from '../../../models/product';
 
 const RenderList = ({
   item,
   navigateToListDetail,
   navigateToEditList,
 }: {
-  item: IList;
+  item: IList<IProduct>;
   navigateToListDetail: (id: string) => void;
   navigateToEditList: (id: string) => void;
 }) => {

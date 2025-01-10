@@ -12,6 +12,7 @@ const CreateListForm = ({
   products,
   initialValues,
   handleFormikSubmit,
+  removeProductSelected,
 }: {
   initialValues: {name: string};
   handleFormikSubmit: (
@@ -26,9 +27,10 @@ const CreateListForm = ({
   ) => Promise<any>;
   goToAddProducts: (values: {name: string}) => void;
   products: IProduct[];
+  removeProductSelected: (id: number) => void;
 }) => {
   const _renderProducts = ({item}: {item: IProduct}) => {
-    return <RenderProduct item={item} onPress={() => null} />;
+    return <RenderProduct item={item} onPress={removeProductSelected} />;
   };
 
   return (

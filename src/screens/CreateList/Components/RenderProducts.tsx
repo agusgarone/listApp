@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {IProduct} from '../../../models/product';
 import theme from '../../../common/theme';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
@@ -9,18 +9,20 @@ const RenderProduct = ({
   onPress,
 }: {
   item: IProduct;
-  onPress: ({item}: {item: IProduct}) => void;
+  onPress: (id: number) => void;
 }) => {
   return (
     <View style={style.view}>
       <Text style={style.text}>{item.name}</Text>
-      <Icon
-        name="times"
-        type={IconType.FontAwesome}
-        size={25}
-        color={theme.colors.grey}
-        // onPress={goBack}
-      />
+      <TouchableOpacity style={style.button} onPress={() => onPress(item.id)}>
+        <Icon
+          name="times"
+          type={IconType.FontAwesome}
+          size={25}
+          color={theme.colors.grey}
+          onPress={() => onPress(item.id)}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -41,6 +43,9 @@ const style = StyleSheet.create({
   },
   text: {
     color: theme.colors.grey,
+  },
+  button: {
+    paddingHorizontal: 12,
   },
 });
 

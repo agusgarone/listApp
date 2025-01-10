@@ -100,7 +100,7 @@ export const categories: ICategoria[] = [
   },
 ];
 
-export const Lists: IList[] = [
+export const Lists: IList<IProduct>[] = [
   {
     id: 1,
     fechaAlta: '16-06-2024',

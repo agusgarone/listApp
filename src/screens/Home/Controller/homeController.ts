@@ -2,9 +2,10 @@ import {useContext, useState} from 'react';
 import {NavigationContext} from '@react-navigation/native';
 import {IList} from '../../../models/list';
 import {StorageService} from '../../../storage/asyncStorage';
+import {IProduct} from '../../../models/product';
 
 export const homeController = () => {
-  const [list, setList] = useState<IList[]>([]);
+  const [list, setList] = useState<IList<IProduct>[]>([]);
   const navigation = useContext(NavigationContext);
 
   const navigateToListDetail = (id: string) => {

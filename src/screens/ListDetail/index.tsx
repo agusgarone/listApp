@@ -8,7 +8,13 @@ import {listDetailController} from './Controller/listDetailController';
 
 const ListDetail = ({route}: any) => {
   const {key, name, params} = route;
-  const {goBack} = listDetailController();
+  const {
+    goBack,
+    listSelected,
+    getListByID,
+    handleDeleteList,
+    handleAllSelected,
+  } = listDetailController();
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -28,7 +34,13 @@ const ListDetail = ({route}: any) => {
         right={<></>}
         key={'Header'}
       />
-      <Content id={params?.id} />
+      <Content
+        id={params?.id}
+        getListByID={getListByID}
+        handleAllSelected={handleAllSelected}
+        handleDeleteList={handleDeleteList}
+        listSelected={listSelected}
+      />
     </SafeAreaView>
   );
 };

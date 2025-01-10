@@ -1,8 +1,6 @@
-import {IProduct} from '../models/product';
-
-export interface IList {
+export interface IList<T> {
   id: number;
   fechaAlta: string;
   name: string;
-  products: IProduct[];
+  products: T[];
 }

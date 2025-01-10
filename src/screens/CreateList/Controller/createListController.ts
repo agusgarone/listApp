@@ -117,11 +117,18 @@ export const createListController = () => {
     navigation?.navigate('AddProducts');
   };
 
+  const removeProductSelected = (id: number) => {
+    const productsFilter = products.filter(product => product.id !== id);
+    setProducts(productsFilter);
+    GlobalStateService.setProductsSelected(productsFilter);
+  };
+
   return {
     products,
     handleFormikSubmit,
     goToAddProducts,
     initialValues,
     list,
+    removeProductSelected,
   };
 };

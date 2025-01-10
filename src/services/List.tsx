@@ -1,8 +1,11 @@
 import {IList} from '../models/list';
+import {IProduct} from '../models/product';
 import {StorageService} from '../storage/asyncStorage';
 
-export const CreateList = async (list: IList) => {
-  const responseGetLists: IList[] = await StorageService.getItem('lists');
+export const CreateList = async (list: IList<IProduct>) => {
+  const responseGetLists: IList<IProduct>[] = await StorageService.getItem(
+    'lists',
+  );
   if (responseGetLists) {
     const listExist = responseGetLists.find(value => value.name === list.name);
     if (listExist) {
@@ -16,14 +19,18 @@ export const CreateList = async (list: IList) => {
   }
 };
 
-export const RemoveList = async (list: IList) => {
-  const responseGetLists: IList[] = await StorageService.getItem('lists');
+export const RemoveList = async (list: IList<IProduct>) => {
+  const responseGetLists: IList<IProduct>[] = await StorageService.getItem(
+    'lists',
+  );
   const listsArray = responseGetLists.filter(value => value.name !== list.name);
   await StorageService.setItem('lists', listsArray);
 };
 
-export const EditList = async (list: IList) => {
-  const responseGetLists: IList[] = await StorageService.getItem('lists');
+export const EditList = async (list: IList<IProduct>) => {
+  const responseGetLists: IList<IProduct>[] = await StorageService.getItem(
+    'lists',
+  );
   const listsArray = responseGetLists.map(value => {
     if (value.id === list.id) {
       return list;
@@ -34,12 +41,12 @@ export const EditList = async (list: IList) => {
 };
 
 export const getAllList = async function () {
-  const response: IList[] = await StorageService.getItem('lists');
+  const response: IList<IProduct>[] = await StorageService.getItem('lists');
   return response;
 };
 
 export const getListByID = async function (id: number) {
-  const response: IList[] = await StorageService.getItem('lists');
+  const response: IList<IProduct>[] = await StorageService.getItem('lists');
   const findList = response.find(it => it.id === id);
   if (findList) {
     return findList;

@@ -6,11 +6,12 @@ import RenderList from './Components/RenderList';
 import {IList} from '../../models/list';
 import theme from '../../common/theme';
 import {homeController} from './Controller/homeController';
+import {IProduct} from '../../models/product';
 
 const Home = () => {
   const {list, navigateToListDetail, navigateToEditList} = homeController();
 
-  const _renderList = ({item}: {item: IList}) => {
+  const _renderList = ({item}: {item: IList<IProduct>}) => {
     return (
       <RenderList
         item={item}

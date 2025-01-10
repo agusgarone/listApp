@@ -8,7 +8,7 @@ const List = ({
   render,
 }: {
   data: IProduct[] | IList[];
-  render: ({item}: {item: any}) => React.JSX.Element;
+  render: ({item, index}: {item: any; index: number}) => React.JSX.Element;
 }) => {
   return (
     <FlatList

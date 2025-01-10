@@ -5,8 +5,13 @@ import CreateListForm from '../../screens/CreateList/Components/Form';
 import {createListController} from './Controller/createListController';
 
 const CreateList = () => {
-  const {handleFormikSubmit, initialValues, goToAddProducts, products} =
-    createListController();
+  const {
+    handleFormikSubmit,
+    initialValues,
+    goToAddProducts,
+    products,
+    removeProductSelected,
+  } = createListController();
 
   return (
     <SafeAreaView style={Style.screen}>
@@ -16,6 +21,7 @@ const CreateList = () => {
           initialValues={initialValues}
           goToAddProducts={goToAddProducts}
           products={products}
+          removeProductSelected={removeProductSelected}
         />
       </View>
     </SafeAreaView>
