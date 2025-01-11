@@ -1541,6 +1541,16 @@
     use-latest-callback "^0.2.1"
     use-sync-external-store "^1.2.2"
 
+"@react-navigation/drawer@^7.1.1":
+  version "7.1.1"
+  resolved "https://registry.npmjs.org/@react-navigation/drawer/-/drawer-7.1.1.tgz"
+  integrity sha512-34UqRS5OLFaNXPs5ocz3Du9c7em0P7fFMPYCZn/MxadDzQ4Mn/74pmJczmiyvyvz8vcWsNRbZ3Qswm0Dv6z60w==
+  dependencies:
+    "@react-navigation/elements" "^2.2.5"
+    color "^4.2.3"
+    react-native-drawer-layout "^4.1.1"
+    use-latest-callback "^0.2.1"
+
 "@react-navigation/elements@^2.2.5":
   version "2.2.5"
   resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-2.2.5.tgz"
@@ -4487,6 +4497,13 @@ react-is@^16.7.0:
 react-is@^17.0.1:
   version "17.0.2"
 
+react-native-drawer-layout@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npmjs.org/react-native-drawer-layout/-/react-native-drawer-layout-4.1.1.tgz"
+  integrity sha512-ob6O3ph7PZ3A2FpdlsSxHuMpHDXREZPR8A6S3q0dSxV7i6d+8Z6CPCTbegfN2QZyizSow9NLrKyXP93tlqZ3dA==
+  dependencies:
+    use-latest-callback "^0.2.1"
+
 react-native-dynamic-vector-icons@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/react-native-dynamic-vector-icons/-/react-native-dynamic-vector-icons-2.0.0.tgz"
@@ -4504,7 +4521,7 @@ react-native-gesture-handler@^2.19.0, "react-native-gesture-handler@>= 2.0.0", r
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-reanimated@^3.15.2, react-native-reanimated@>=2.2.0:
+react-native-reanimated@^3.15.2, "react-native-reanimated@>= 2.0.0", react-native-reanimated@>=2.2.0:
   version "3.15.2"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.15.2.tgz"
   integrity sha512-2kg80jhPCYAxoT+xx/+oTvOkc2YbzD0mfodQ8y7OtR1aZUECXd3UnHb6uN2J19TFF4si1TKS5Qi17R4qOENBHA==

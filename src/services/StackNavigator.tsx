@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import BottomTabs from './BottomTabs';
+import BottomTabs from './TabsNavigator';
 import ListDetail from '../screens/ListDetail';
 import AddProducts from '../screens/AddProducts';
 import CreateProduct from '../screens/CreateProduct';
@@ -9,13 +9,11 @@ const Stack = createStackNavigator();
 function StackNavigator() {
   return (
     <Stack.Navigator>
-      {/* Tab Navigator como pantalla principal */}
       <Stack.Screen
         name="MainTabs"
         component={BottomTabs}
-        options={{headerShown: false}} // Oculta el header para el Tab Navigator
+        options={{headerShown: false}}
       />
-      {/* Pantallas adicionales */}
       <Stack.Screen
         name="ListDetail"
         component={ListDetail}

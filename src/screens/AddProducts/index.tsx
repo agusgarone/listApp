@@ -1,10 +1,10 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
-import Content from './components/Content';
+import Content from './Components/Content';
 import Header from '../../components/Header';
 import theme from '../../common/theme';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
-import {addProductsController} from './controller/addProductsController';
+import {addProductsController} from './Controller/addProductsController';
 
 const AddProducts = () => {
   const {goBack, handleButton, handleFormikSubmit, onPress, productsSelected} =

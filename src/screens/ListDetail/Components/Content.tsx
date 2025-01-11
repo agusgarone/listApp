@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import List from '../../../components/List';
 import {IProduct} from '../../../models/product';
-import RenderProduct from '../../AddProducts/components/RenderProducts';
+import RenderProduct from '../../AddProducts/Components/RenderProducts';
 import theme from '../../../common/theme';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {FieldArray, Formik} from 'formik';

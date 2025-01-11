@@ -12,8 +12,11 @@ import {IProduct} from '../../models/product';
 import RenderProduct from './Components/RenderProducts';
 import Button from '../../components/Button';
 import {productsController} from './Controller/productsController';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 
-const Products = () => {
+type ProductsProps = DrawerScreenProps<any, 'Main'>;
+
+const Products = ({navigation}: ProductsProps) => {
   const {allProducts, goToCreateProduct, handleDeleteProduct} =
     productsController();
 
@@ -33,7 +36,9 @@ const Products = () => {
         <View style={Style.content}>
           <View style={Style.header}>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity style={Style.action}>
+              <TouchableOpacity
+                style={Style.action}
+                onPress={() => navigation.openDrawer()}>
                 <Text style={Style.buttonText}>Filtros</Text>
               </TouchableOpacity>
             </View>

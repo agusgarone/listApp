@@ -7,7 +7,7 @@ const List = ({
   data,
   render,
 }: {
-  data: IProduct[] | IList[];
+  data: IProduct[] | IList<IProduct>[];
   render: ({item, index}: {item: any; index: number}) => React.JSX.Element;
 }) => {
   return (

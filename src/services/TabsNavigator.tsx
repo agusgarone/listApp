@@ -4,7 +4,7 @@ import Home from '../screens/Home';
 import CreateList from '../screens/CreateList';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import theme from '../common/theme';
-import Products from '../screens/Products';
+import {DrawerNavigator} from './DrawerNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -62,7 +62,7 @@ const BottomTabs = () => {
           ),
           tabBarActiveTintColor: theme.colors.primary,
         }}
-        component={Products}
+        component={DrawerNavigator}
       />
     </Tab.Navigator>
   );

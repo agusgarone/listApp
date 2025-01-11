@@ -4,7 +4,7 @@ import theme from '../../common/theme';
 
 import Header from '../../components/Header';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
-import CreateProductForm from './Component/Form';
+import CreateProductForm from './Components/Form';
 import {createProductController} from './Controller/createProductController';
 
 const CreateProduct = ({route}: any) => {
