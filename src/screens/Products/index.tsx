@@ -38,7 +38,8 @@ const Products = ({navigation}: ProductsProps) => {
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
                 style={Style.action}
-                onPress={() => navigation.openDrawer()}>
+                // onPress={() => navigation.openDrawer()}
+              >
                 <Text style={Style.buttonText}>Filtros</Text>
               </TouchableOpacity>
             </View>
