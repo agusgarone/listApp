@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import List from '../../../components/List';
 import {IProduct} from '../../../models/product';
-import RenderProduct from '../../AddProducts/Components/RenderProducts';
 import theme from '../../../common/theme';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {FieldArray, Formik} from 'formik';
 import {IList} from '../../../models/list';
 import {IProductForm} from '../../../models/productForm';
+import RenderProduct from './RenderProducts';
 
 const Content = ({
   id,
